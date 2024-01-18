@@ -67,6 +67,7 @@ Therapists {
 	name string
 	specialization string
 	credentials string
+  bio string
 }
 
 Moods {
@@ -116,7 +117,7 @@ Appointments {
 	end_time datetime
 }
 
-MindfullnessActivities {
+MindfulnessActivities {
 	id integer pk increments
 	patient_id integer >* patients.id
 	total_minutes integer
@@ -147,7 +148,7 @@ SocialInteractions {
 	id integer pk increments
 	patient_id integer >* patients.id
 	activity_type string
-	participants integer
+	number_of_participants integer
 	enjoyment_scale integer
 	location string
 	duration_in_minutes integer
@@ -171,8 +172,8 @@ Patterns {
 	average_mood_after_mindfullness integer
 	average_stress_before_mindfullness integer
 	average_stress_after_mindfullness integer
-	average_mood_before_social_int integer
-	average_mood_after_social_int integer
+	average_mood_before_social_event integer
+	average_mood_after_social_event integer
   average_mood_before_meds integer
   average_mood_after_meds integer
 }
