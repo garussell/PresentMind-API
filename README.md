@@ -134,6 +134,15 @@ SleepEntries {
 	date date
 }
 
+MedicationEntries {
+  id integer pk increments
+  patient_id integer >* patients.id
+  name string
+  purpose string
+  dose string
+  schedule string
+}
+
 SocialInteractions {
 	id integer pk increments
 	patient_id integer >* patients.id
@@ -164,12 +173,138 @@ Patterns {
 	average_stress_after_mindfullness integer
 	average_mood_before_social_int integer
 	average_mood_after_social_int integer
+  average_mood_before_meds integer
+  average_mood_after_meds integer
 }
 ```
 
 ## Endpoints
 
-`?` - work in progress
+Patients:
+
+`GET /patients`: Retrieve a list of all patients.
+`GET /patients/:id`: Retrieve details of a specific patient.
+`POST /patients`: Create a new patient.
+`PUT /patients/:id`: Update details of a specific patient.
+`DELETE /patients/:id`: Delete a specific patient.
+
+Therapists:
+
+`GET /therapists`: Retrieve a list of all therapists.
+`GET /therapists/:id`: Retrieve details of a specific therapist.
+`POST /therapists`: Create a new therapist.
+`PUT /therapists/:id`: Update details of a specific therapist.
+`DELETE /therapists/:id`: Delete a specific therapist.
+
+Moods:
+
+`GET /moods`: Retrieve a list of all mood entries.
+`GET /moods/:id`: Retrieve details of a specific mood entry.
+`POST /moods`: Create a new mood entry.
+`PUT /moods/:id`: Update details of a specific mood entry.
+`DELETE /moods/:id`: Delete a specific mood entry.
+
+Nutrition Entries:
+
+`GET /nutrition_entries`: Retrieve a list of all nutrition entries.
+`GET /nutrition_entries/:id`: Retrieve details of a specific nutrition entry.
+`POST /nutrition_entries`: Create a new nutrition entry.
+`PUT /nutrition_entries/:id`: Update details of a specific nutrition entry.
+`DELETE /nutrition_entries/:id`: Delete a specific nutrition entry.
+
+Exercise Entries:
+
+`GET /patients/:patient_id/exercise_entries`: Retrieve a list of all exercise entries.
+`GET /patients/:patient_id/exercise_entries/:id`: Retrieve details of a specific exercise entry.
+`POST /patients/:patient_id/exercise_entries`: Create a new exercise entry.
+`PUT /patients/:patient_id/exercise_entries/:id`: Update details of a specific exercise entry.
+`DELETE /patients/:patient_id/exercise_entries/:id`: Delete a specific exercise entry.
+
+Journal Entries:
+
+`GET /patients/:patient_id/journal_entries`: Retrieve a list of all journal entries.
+`GET /patients/:patient_id/journal_entries/:id`: Retrieve details of a specific journal entry.
+`POST /patients/:patient_id/journal_entries`: Create a new journal entry.
+`PUT /patients/:patient_id/journal_entries/:id`: Update details of a specific journal entry.
+`DELETE /patients/:patient_id/journal_entries/:id`: Delete a specific journal entry.
+
+Appointments:
+
+`GET /patients/:patient_id/appointments`: Retrieve a list of all appointments.
+`GET /patients/:patient_id/appointments/:id`: Retrieve details of a specific appointment.
+`POST /patients/:patient_id/appointments`: Create a new appointment.
+`PUT /patients/:patient_id/appointments/:id`: Update details of a specific appointment.
+`DELETE /patients/:patient_id/appointments/:id`: Delete a specific appointment.
+
+Mindfulness Activities:
+
+`GET /patients/:patient_id/mindfulness_activities`: Retrieve a list of all mindfulness activities.
+`GET /patients/:patient_id/mindfulness_activities/:id`: Retrieve details of a specific mindfulness activity.
+`POST /patients/:patient_id/mindfulness_activities`: Create a new mindfulness activity.
+`PUT /patients/:patient_id/mindfulness_activities/:id`: Update details of a specific mindfulness activity.
+`DELETE /patients/:patient_id/mindfulness_activities/:id`: Delete a specific mindfulness activity.
+
+Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry.
+
+Medication Entries:
+
+`GET /patients/:patient_id/medication_entries`: Retrieve a list of all medication entries.
+`GET /patients/:patient_id/medication_entries/:id`: Retrieve details of a specific medication entry.
+`POST /patients/:patient_id/medication_entries`: Create a new medication entry.
+`PUT /patients/:patient_id/medication_entries/:id`: Update details of a specific medication entry.
+`DELETE /patients/:patient_id/medication_entries/:id`: Delete a specific medication entry.
+
+Social Interactions:
+
+`GET /patients/:patient_id/social_interactions`: Retrieve a list of all social interactions.
+`GET /patients/:patient_id/social_interactions/:id`: Retrieve details of a specific social interaction.
+`POST /patients/:patient_id/social_interactions`: Create a new social interaction.
+`PUT /patients/:patient_id/social_interactions/:id`: Update details of a specific social interaction.
+`DELETE /patients/:patient_id/social_interactions/:id`: Delete a specific social interaction.
+
+Patterns:
+
+`GET Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry./patterns`: Retrieve a list of all patterns.
+`GET Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry./patterns/:id`: Retrieve details of a specific pattern.
+`POST Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry./patterns`: Create a new pattern.
+`PUT Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry./patterns/:id`: Update details of a specific pattern.
+`DELETE Sleep Entries:
+
+`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry./patterns/:id`: Delete a specific pattern.
 
 ## Deployment
 
