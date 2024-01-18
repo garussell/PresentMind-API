@@ -308,4 +308,4 @@ Patterns:
 
 ## Deployment
 
-- Docker and Google for back-end
+- Pending:  Use Docker and Google
