@@ -185,6 +185,7 @@ Patterns {
   average_mood_after_meds integer
 }
 ```
+![Screenshot 2024-01-18 at 2 21 20 PM](https://github.com/garussell/PresentMind/assets/125214565/3579e338-d02f-4ae4-ba1c-37e14fb1d5a4)
 
 ## Endpoints
 
