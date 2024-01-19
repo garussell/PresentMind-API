@@ -1,6 +1,14 @@
 require 'rails_helper'
 
+shared_context "with valid token" do
+  before do
+    @valid_token = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'
+  end
+end
+
 RSpec.describe "Api::V1::Patients", type: :request do
+  include_context "with valid token"
+
   before do
     @therapist = create(:therapist)
     @patient = create(:patient, therapist: @therapist)
@@ -8,7 +16,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
 
   describe "show" do
     it "returns http success" do
-      get "/api/v1/patients/#{@patient.id}", headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'}
+      get "/api/v1/patients/#{@patient.id}", headers: {'Authorization': @valid_token}
       
       expect(response).to have_http_status(:success)
       
@@ -44,7 +52,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
     end
 
     it "sad path: returns error if patient not found" do
-      get "/api/v1/patients/0", headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'}
+      get "/api/v1/patients/0", headers: {'Authorization': @valid_token}
 
       expect(response).to have_http_status(:not_found)
     end
@@ -59,7 +67,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
   describe "update" do
     it "updates a patient" do
       patch "/api/v1/patients/#{@patient.id}", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'},
+        headers: {'Authorization': @valid_token},
         params: { patient: { name: "New Name" } }   
   
       expect(response).to have_http_status(:success)
@@ -77,7 +85,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
 
     it "sad path: returns error if patient not found" do
       patch "/api/v1/patients/0", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'},
+        headers: {'Authorization': @valid_token},
         params: { patient: { name: "New Name" } }   
 
       expect(response).to have_http_status(:not_found)
@@ -85,7 +93,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
 
     it "sad path: patient not updated if invalid params" do
       patch "/api/v1/patients/#{@patient.id}", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'},
+        headers: {'Authorization': @valid_token},
         params: { patient: { name: "" } }   
 
       expect(response).to have_http_status(:unprocessable_entity)
@@ -95,7 +103,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
   describe "create" do
     it "creates a patient" do
       post "/api/v1/patients", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'},
+        headers: {'Authorization': @valid_token},
         params: { patient: { name: "New Name", email: "new@email.com", dob: "1999-01-01", phone: "000-000-0000", address: "123 No St", "emergency_contact_name": "New Name", "emergency_contact_number": "000-000-000", "therapist_id": @therapist.id } }
 
       expect(response).to have_http_status(:created)
@@ -133,7 +141,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
 
     it "sad path: patient not created if invalid params" do
       post "/api/v1/patients", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'},
+        headers: {'Authorization': @valid_token},
         params: { patient: { name: "", email: "new@email.com", dob: "1999-01-01", phone: "000-000-0000", address: "123 No St", "emergency_contact_name": "New Name", "emergency_contact_number": "000-000-000", "therapist_id": @therapist.id } }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -149,7 +157,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
   describe "destroy" do
     it "deletes a patient" do
       delete "/api/v1/patients/#{@patient.id}", 
-        headers: {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA1Njk4MTI3LCJleHAiOjE3MDU3ODQ1MjcsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hQMP6ThQ1-kSrXauUPurSQ4G7qxuqQULvUOManNxwqZSegFhIji9hMMkm8am473nPcYcvpzJAjKM02ZupO1GlbfBK-Wa--5gekSYhZm7HRPDdYeIfUER0nI39nDu2vJujG4TiYR_Ap4og8qQ30jf8127Z9RPlfe4cLLtkNRUzyPOprQNTEffqEOxngNxmeLPFRTyiWTzBXqxLi3Dc5RLimfYyhOkrT2o7vQOr6d-96kPMgaKO6QAgT9fL06wiMa6j_z_5_jgiPvrFQBKAVNXj8XGXcTdjT5ug8dS1ksZbm6onE7VYuvpN93irZqZYMme9BOmY4zi8vSi0zC2YtgmnQ'}
+        headers: {'Authorization': @valid_token}
 
       expect(response).to have_http_status(:success)
 
