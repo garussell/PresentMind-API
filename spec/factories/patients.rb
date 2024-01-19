@@ -7,6 +7,5 @@ FactoryBot.define do
     address { Faker::Address.full_address }
     emergency_contact_name { Faker::Fantasy::Tolkien.character }
     emergency_contact_number { Faker::PhoneNumber.cell_phone }
-    association :therapist, factory: :therapist
   end
 end

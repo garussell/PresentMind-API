@@ -12,10 +12,10 @@ FactoryBot.define do
     average_mood_with_bad_nutrition { rand(1..7) }
     average_mood_before_journaling { rand(1..7) }
     average_mood_after_journaling { rand(1..7) }
-    average_mood_before_mindfullness { rand(1..7) }
-    average_mood_after_mindfullness { rand(1..7) }
-    average_stress_before_mindfullness { rand(1..7) }
-    average_stress_after_mindfullness { rand(1..7) }
+    average_mood_before_mindfulness { rand(1..7) }
+    average_mood_after_mindfulness { rand(1..7) }
+    average_stress_before_mindfulness { rand(1..7) }
+    average_stress_after_mindfulness { rand(1..7) }
     average_mood_before_social_event { rand(1..7) }
     average_mood_after_social_event { rand(1..7) }
     average_mood_before_meds { rand(1..7) }

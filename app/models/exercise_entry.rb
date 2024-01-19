@@ -1,5 +1,5 @@
 class ExerciseEntry < ApplicationRecord
-  belongs_to :patient
+  belongs_to :patient, dependent: :destroy
 
   validates_presence_of :goal, 
                         :exercise_type, 
