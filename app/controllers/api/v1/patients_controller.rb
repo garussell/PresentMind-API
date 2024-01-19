@@ -1,19 +1,6 @@
 class Api::V1::PatientsController < ApplicationController
   before_action :authorize
 
-  def index
-    begin
-      therapist = Therapist.find(params[:therapist_id])
-      patients = therapist.patients
-  
-      render json: patients, status: :ok
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :not_found
-    rescue StandardError => e
-      render json: { errors: e.message }, status: :unprocessable_entity
-    end
-  end  
-
   def show
     begin
       patient = Patient.find(params[:id])
@@ -21,8 +8,6 @@ class Api::V1::PatientsController < ApplicationController
       render json: patient, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
-    rescue StandardError => e
-      render json: { errors: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -39,37 +24,24 @@ class Api::V1::PatientsController < ApplicationController
       end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
-    rescue StandardError => e
-      render json: { errors: e.message }, status: :unprocessable_entity
     end
   end
 
   def create
-    begin 
-      patient = Patient.new(patient_params)
+    patient = Patient.new(patient_params)
 
-      if patient.save
-        render json: patient, status: :created
-      else
-        render json: { errors: patient.errors.full_messages }, status: :unprocessable_entity
-      end
-    rescue StandardError => e
-      render json: { errors: e.message }, status: :unprocessable_entity
+    if patient.save
+      render json: patient, status: :created
+    else
+      render json: { errors: patient.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    begin 
-      patient = Patient.find(params[:id])
+    patient = Patient.find(params[:id])
 
-      if patient
-        patient.destroy
-        render json: { message: "Patient deleted successfully" }, status: :ok
-      else
-        render json: { errors: "Patient not found" }, status: :not_found
-      end
-    rescue StandardError => e
-      render json: { errors: e.message }, status: :unprocessable_entity
+    if patient.destroy
+      render json: { message: "Patient deleted successfully" }, status: :ok
     end
   end
 

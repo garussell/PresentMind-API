@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # Private Routes
   namespace :api do
     namespace :v1 do
-      resources :patients, only: [:index, :show, :create, :update, :destroy] do
+      resources :patients, only: [:show, :create, :update, :destroy] do
         resources :moods
         resources :nutrition_entries
         resources :exercise_entries
