@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :appointment do
-    title { "MyString" }
-    description { "MyString" }
-    start_time { "2024-01-18 15:58:40" }
-    end_time { "2024-01-18 15:58:40" }
-    patient { nil }
+    title { Faker::Fantasy::Tolkien.character }
+    description { Faker::Lorem.paragraph }
+    start_time { Faker::Time.between(from: DateTime.now, to: DateTime.now + 30) }
+    end_time { Faker::Time.between(from: DateTime.now + 31, to: DateTime.now + 60) }
+    association :patient, factory: :patient
   end
 end
