@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   end
 
   create_table "mindfulness_activities", force: :cascade do |t|
+    t.string "activity"
     t.integer "total_minutes"
     t.string "notes"
     t.date "date"
@@ -80,12 +81,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
 
   create_table "nutrition_entries", force: :cascade do |t|
     t.string "food_item"
+    t.integer "calories"
     t.integer "number_of_servings"
     t.boolean "healthy"
     t.integer "cups_of_water"
     t.integer "fruits_and_veg_servings"
     t.boolean "correct_portion"
-    t.date "data"
+    t.date "date"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,6 +113,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.date "end_date"
     t.integer "average_mood"
     t.integer "average_stress_level"
+    t.integer "average_sleep_quality"
+    t.integer "average_sleep_hours"
     t.integer "average_stress_before_exercise"
     t.integer "average_stress_after_exercise"
     t.integer "average_mood_with_good_nutrition"
@@ -132,6 +136,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   end
 
   create_table "sleep_entries", force: :cascade do |t|
+    t.time "bed_time"
     t.integer "quality_rating"
     t.integer "total_hours"
     t.boolean "dream"
@@ -144,12 +149,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   end
 
   create_table "social_interactions", force: :cascade do |t|
-    t.string "activity_type"
-    t.integer "number_of_participants"
-    t.integer "enjoyment_scale"
+    t.string "event_name"
+    t.integer "activity_type"
+    t.integer "social_rating"
     t.string "location"
     t.integer "duration_in_minutes"
     t.date "date"
+    t.boolean "alcohol_use"
+    t.boolean "drug_use"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -158,7 +165,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
 
   create_table "therapists", force: :cascade do |t|
     t.string "name"
+    t.string "email"
+    t.string "office_number"
     t.string "specialization"
+    t.integer "years_in_practice"
     t.string "credentials"
     t.string "bio"
     t.datetime "created_at", null: false

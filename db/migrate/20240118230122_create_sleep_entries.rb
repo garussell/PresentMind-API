@@ -1,6 +1,7 @@
 class CreateSleepEntries < ActiveRecord::Migration[7.1]
   def change
     create_table :sleep_entries do |t|
+      t.time :bed_time
       t.integer :quality_rating
       t.integer :total_hours
       t.boolean :dream

@@ -5,6 +5,8 @@ class CreatePatterns < ActiveRecord::Migration[7.1]
       t.date :end_date
       t.integer :average_mood
       t.integer :average_stress_level
+      t.integer :average_sleep_quality
+      t.integer :average_sleep_hours
       t.integer :average_stress_before_exercise
       t.integer :average_stress_after_exercise
       t.integer :average_mood_with_good_nutrition
