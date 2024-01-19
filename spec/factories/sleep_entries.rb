@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :sleep_entry do
-    quality_rating { 1 }
-    total_hours { 1 }
-    dream { false }
-    notes { "MyString" }
-    date { "2024-01-18" }
-    patient { nil }
+    bed_time { Faker::Time.between(from: DateTime.now, to: DateTime.now + 30) }
+    quality_rating { rand(1..7) }
+    total_hours { rand(1..12) }
+    dream { true }
+    notes { Faker::Quotes::Rajnikanth.joke }
+    date { Faker::Date.between(from: 1.year.ago, to: Date.today) }
+    association :patient, factory: :patient
   end
 end

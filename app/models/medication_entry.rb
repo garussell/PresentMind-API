@@ -1,5 +1,5 @@
 class MedicationEntry < ApplicationRecord
-  belongs_to :patient
+  belongs_to :patient, dependent: :destroy
 
   validates_presence_of :name, 
                         :purpose, 

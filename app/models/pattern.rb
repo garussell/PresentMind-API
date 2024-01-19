@@ -1,5 +1,5 @@
 class Pattern < ApplicationRecord
-  belongs_to :patient
+  belongs_to :patient, dependent: :destroy
 
   validates_presence_of :start_date, 
                         :end_date, 

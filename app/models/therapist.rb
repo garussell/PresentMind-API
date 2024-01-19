@@ -1,5 +1,5 @@
 class Therapist < ApplicationRecord
-  has_many :patients
+  has_many :patients, dependent: :destroy
   has_many :patterns, through: :patients
 
   validates_presence_of :name, 

@@ -1,5 +1,5 @@
 class Mood < ApplicationRecord
-  belongs_to :patient
+  belongs_to :patient, dependent: :destroy
   
   validates_presence_of :current_mood_scale, 
                         :stress_level_scale, 
