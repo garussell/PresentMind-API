@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  # Auth0 API Routes for testing purposes only
+  # get 'api/public' => 'public#public'
+  # get 'api/private' => 'private#private'
+  # get 'api/private-scoped' => 'private#private_scoped'
+
   namespace :api do
     namespace :v1 do
       resources :patients, only: [:index, :show, :create, :update, :destroy] do
