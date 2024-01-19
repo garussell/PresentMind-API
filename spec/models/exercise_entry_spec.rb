@@ -12,4 +12,8 @@ RSpec.describe ExerciseEntry, type: :model do
     it { should validate_presence_of(:date) }
     it { should validate_presence_of(:patient_id) }
   end
+
+  describe "enum" do
+    it { should define_enum_for(:exercise_type).with_values([:cardio, :olympic_weightlifting, :plyometrics, :powerlifting, :strength, :stretching, :strongman]) }
+  end
 end

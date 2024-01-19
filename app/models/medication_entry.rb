@@ -7,3 +7,4 @@ class MedicationEntry < ApplicationRecord
                         :schedule, 
                         :patient_id
 end
+
