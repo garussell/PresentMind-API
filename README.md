@@ -67,7 +67,7 @@ Therapists {
 	name string
 	specialization string
 	credentials string
-  bio string
+        bio string
 }
 
 Moods {
@@ -139,12 +139,12 @@ SleepEntries {
 }
 
 MedicationEntries {
-  id integer pk increments
-  patient_id integer >* patients.id
-  name string
-  purpose string
-  dose string
-  schedule string
+        id integer pk increments
+        patient_id integer >* patients.id
+        name string
+        purpose string
+        dose string
+        schedule string
 }
 
 SocialInteractions {
@@ -181,8 +181,8 @@ Patterns {
 	average_stress_after_mindfullness integer
 	average_mood_before_social_event integer
 	average_mood_after_social_event integer
-  average_mood_before_meds integer
-  average_mood_after_meds integer
+        average_mood_before_meds integer
+        average_mood_after_meds integer
 }
 ```
 ![Screenshot 2024-01-18 at 2 21 20 PM](https://github.com/garussell/PresentMind/assets/125214565/3579e338-d02f-4ae4-ba1c-37e14fb1d5a4)
