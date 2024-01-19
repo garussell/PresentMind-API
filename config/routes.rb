@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :sleep_entries
     resources :medication_entries
     resources :social_interactions
-    resources :patterns
+    resources :patterns, only: [:index]
   end
 
   resources :therapists, only: [:index, :show, :create, :update, :destroy] 
