@@ -83,6 +83,7 @@ NutritionEntries {
 	id integer pk increments
 	patient_id integer >* patients.id
 	food_item string
+	calories integer
 	number_of_servings integer
 	healthy boolean
 	cups_of_water integer
@@ -120,6 +121,7 @@ Appointments {
 MindfulnessActivities {
 	id integer pk increments
 	patient_id integer >* patients.id
+	activity string
 	total_minutes integer
 	notes string
 	date date
@@ -128,6 +130,7 @@ MindfulnessActivities {
 SleepEntries {
 	id integer pk increments
 	patient_id integer >* patients.id
+	bed_time time
 	quality_rating integer
 	total_hours integer
 	dream boolean
@@ -147,12 +150,14 @@ MedicationEntries {
 SocialInteractions {
 	id integer pk increments
 	patient_id integer >* patients.id
+	event_name string
 	activity_type string
-	number_of_participants integer
-	enjoyment_scale integer
+	social_rating integer
 	location string
 	duration_in_minutes integer
 	date date
+	alcohol_use boolean
+	drug_use boolean
 }
 
 Patterns {
@@ -162,6 +167,8 @@ Patterns {
 	end_date date
 	average_mood integer
 	average_stress_level integer
+	average_sleep_quality integer
+	average_sleep_hours integer
 	average_stress_before_exercise integer
 	average_stress_after_exercise integer
 	average_mood_with_good_nutrition integer
