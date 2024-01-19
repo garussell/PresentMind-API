@@ -55,5 +55,4 @@ end
 
 # For Auth0 API
 gem 'jwt'
-gem 'auth0'
-gem 'faraday'
+gem 'net-http'

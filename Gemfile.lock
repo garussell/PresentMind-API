@@ -75,14 +75,6 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.6)
-      public_suffix (>= 2.0.2, < 6.0)
-    auth0 (5.16.0)
-      addressable (~> 2.8)
-      jwt (~> 2.7)
-      rest-client (~> 2.1)
-      retryable (~> 3.0)
-      zache (~> 0.12)
     base64 (0.2.0)
     bigdecimal (3.1.6)
     bootsnap (1.17.1)
@@ -98,7 +90,6 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.5.0)
     docile (1.4.0)
-    domain_name (0.6.20240107)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -113,15 +104,8 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
-    faraday (2.9.0)
-      faraday-net_http (>= 2.0, < 3.2)
-    faraday-net_http (3.1.0)
-      net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
-    http-accept (1.7.0)
-    http-cookie (1.0.5)
-      domain_name (~> 0.5)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -141,9 +125,6 @@ GEM
       net-smtp
     marcel (1.0.2)
     method_source (1.0.0)
-    mime-types (3.5.2)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.1205)
     mini_mime (1.1.5)
     minitest (5.21.2)
     msgpack (1.7.2)
@@ -159,7 +140,6 @@ GEM
       timeout
     net-smtp (0.4.0.1)
       net-protocol
-    netrc (0.11.0)
     nio4r (2.7.0)
     nokogiri (1.16.0-aarch64-linux)
       racc (~> 1.4)
@@ -179,7 +159,6 @@ GEM
       method_source (~> 1.0)
     psych (5.1.2)
       stringio
-    public_suffix (5.0.4)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
@@ -227,12 +206,6 @@ GEM
       psych (>= 4.0.0)
     reline (0.4.2)
       io-console (~> 0.5)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
-    retryable (3.0.5)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -270,7 +243,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zache (0.13.1)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -282,15 +254,14 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  auth0
   bootsnap
   debug
   dotenv-rails
   factory_bot_rails
   faker
-  faraday
   jsonapi-serializer
   jwt
+  net-http
   pg (~> 1.1)
   pry
   puma (>= 5.0)
