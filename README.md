@@ -191,11 +191,11 @@ Patterns {
 
 Patients:
 
-`GET /patients`: Retrieve a list of all patients.
-`GET /patients/:id`: Retrieve details of a specific patient.
-`POST /patients`: Create a new patient.
-`PUT /patients/:id`: Update details of a specific patient.
-`DELETE /patients/:id`: Delete a specific patient.
+`GET /api/v1/patients`: Retrieve a list of all patients.
+`GET /api/v1/patients/:id`: Retrieve details of a specific patient.
+`POST /api/v1/patients`: Create a new patient.
+`PUT /api/v1/patients/:id`: Update details of a specific patient.
+`DELETE /api/v1/patients/:id`: Delete a specific patient.
 
 Therapists:
 
@@ -207,71 +207,71 @@ Therapists:
 
 Nutrition Entries:
 
-`GET /patients/:patient_id/nutrition_entries`: Retrieve a list of all nutrition entries.
-`GET /patients/:patient_id/nutrition_entries/:id`: Retrieve details of a specific nutrition entry.
-`POST /patients/:patient_id/nutrition_entries`: Create a new nutrition entry.
-`PUT /patients/:patient_id/nutrition_entries/:id`: Update details of a specific nutrition entry.
-`DELETE /patients/:patient_id/nutrition_entries/:id`: Delete a specific nutrition entry.
+`GET /api/v1/patients/:patient_id/nutrition_entries`: Retrieve a list of all nutrition entries.
+`GET /api/v1/patients/:patient_id/nutrition_entries/:id`: Retrieve details of a specific nutrition entry.
+`POST /api/v1/patients/:patient_id/nutrition_entries`: Create a new nutrition entry.
+`PUT /api/v1/patients/:patient_id/nutrition_entries/:id`: Update details of a specific nutrition entry.
+`DELETE /api/v1/patients/:patient_id/nutrition_entries/:id`: Delete a specific nutrition entry.
 
 Exercise Entries:
 
-`GET /patients/:patient_id/exercise_entries`: Retrieve a list of all exercise entries.
-`GET /patients/:patient_id/exercise_entries/:id`: Retrieve details of a specific exercise entry.
-`POST /patients/:patient_id/exercise_entries`: Create a new exercise entry.
-`PUT /patients/:patient_id/exercise_entries/:id`: Update details of a specific exercise entry.
-`DELETE /patients/:patient_id/exercise_entries/:id`: Delete a specific exercise entry.
+`GET /api/v1/patients/:patient_id/exercise_entries`: Retrieve a list of all exercise entries.
+`GET /api/v1/patients/:patient_id/exercise_entries/:id`: Retrieve details of a specific exercise entry.
+`POST /api/v1/patients/:patient_id/exercise_entries`: Create a new exercise entry.
+`PUT /api/v1/patients/:patient_id/exercise_entries/:id`: Update details of a specific exercise entry.
+`DELETE /api/v1/patients/:patient_id/exercise_entries/:id`: Delete a specific exercise entry.
 
 Journal Entries:
 
-`GET /patients/:patient_id/journal_entries`: Retrieve a list of all journal entries.
-`GET /patients/:patient_id/journal_entries/:id`: Retrieve details of a specific journal entry.
-`POST /patients/:patient_id/journal_entries`: Create a new journal entry.
-`PUT /patients/:patient_id/journal_entries/:id`: Update details of a specific journal entry.
-`DELETE /patients/:patient_id/journal_entries/:id`: Delete a specific journal entry.
+`GET /api/v1/patients/:patient_id/journal_entries`: Retrieve a list of all journal entries.
+`GET /api/v1/patients/:patient_id/journal_entries/:id`: Retrieve details of a specific journal entry.
+`POST /api/v1/patients/:patient_id/journal_entries`: Create a new journal entry.
+`PUT /api/v1/patients/:patient_id/journal_entries/:id`: Update details of a specific journal entry.
+`DELETE /api/v1/patients/:patient_id/journal_entries/:id`: Delete a specific journal entry.
 
 Appointments:
 
-`GET /patients/:patient_id/appointments`: Retrieve a list of all appointments.
-`GET /patients/:patient_id/appointments/:id`: Retrieve details of a specific appointment.
-`POST /patients/:patient_id/appointments`: Create a new appointment.
-`PUT /patients/:patient_id/appointments/:id`: Update details of a specific appointment.
-`DELETE /patients/:patient_id/appointments/:id`: Delete a specific appointment.
+`GET /api/v1/patients/:patient_id/appointments`: Retrieve a list of all appointments.
+`GET /api/v1/patients/:patient_id/appointments/:id`: Retrieve details of a specific appointment.
+`POST /api/v1/patients/:patient_id/appointments`: Create a new appointment.
+`PUT /api/v1/patients/:patient_id/appointments/:id`: Update details of a specific appointment.
+`DELETE /api/v1/patients/:patient_id/appointments/:id`: Delete a specific appointment.
 
 Mindfulness Activities:
 
-`GET /patients/:patient_id/mindfulness_activities`: Retrieve a list of all mindfulness activities.
-`GET /patients/:patient_id/mindfulness_activities/:id`: Retrieve details of a specific mindfulness activity.
-`POST /patients/:patient_id/mindfulness_activities`: Create a new mindfulness activity.
-`PUT /patients/:patient_id/mindfulness_activities/:id`: Update details of a specific mindfulness activity.
-`DELETE /patients/:patient_id/mindfulness_activities/:id`: Delete a specific mindfulness activity.
+`GET /api/v1/patients/:patient_id/mindfulness_activities`: Retrieve a list of all mindfulness activities.
+`GET /api/v1/patients/:patient_id/mindfulness_activities/:id`: Retrieve details of a specific mindfulness activity.
+`POST /api/v1/patients/:patient_id/mindfulness_activities`: Create a new mindfulness activity.
+`PUT /api/v1/patients/:patient_id/mindfulness_activities/:id`: Update details of a specific mindfulness activity.
+`DELETE /api/v1/patients/:patient_id/mindfulness_activities/:id`: Delete a specific mindfulness activity.
 
 Sleep Entries:
 
-`GET /patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
-`GET /patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
-`POST /patients/:patient_id/sleep_entries`: Create a new sleep entry.
-`PUT /patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
-`DELETE /patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry.
+`GET /api/v1/patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
+`GET /api/v1/patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
+`POST /api/v1/patients/:patient_id/sleep_entries`: Create a new sleep entry.
+`PUT /api/v1/patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`DELETE /api/v1/patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry.
 
 Medication Entries:
 
-`GET /patients/:patient_id/medication_entries`: Retrieve a list of all medication entries.
-`GET /patients/:patient_id/medication_entries/:id`: Retrieve details of a specific medication entry.
-`POST /patients/:patient_id/medication_entries`: Create a new medication entry.
-`PUT /patients/:patient_id/medication_entries/:id`: Update details of a specific medication entry.
-`DELETE /patients/:patient_id/medication_entries/:id`: Delete a specific medication entry.
+`GET /api/v1/patients/:patient_id/medication_entries`: Retrieve a list of all medication entries.
+`GET /api/v1/patients/:patient_id/medication_entries/:id`: Retrieve details of a specific medication entry.
+`POST /api/v1/patients/:patient_id/medication_entries`: Create a new medication entry.
+`PUT /api/v1/patients/:patient_id/medication_entries/:id`: Update details of a specific medication entry.
+`DELETE /api/v1/patients/:patient_id/medication_entries/:id`: Delete a specific medication entry.
 
 Social Interactions:
 
-`GET /patients/:patient_id/social_interactions`: Retrieve a list of all social interactions.
-`GET /patients/:patient_id/social_interactions/:id`: Retrieve details of a specific social interaction.
-`POST /patients/:patient_id/social_interactions`: Create a new social interaction.
-`PUT /patients/:patient_id/social_interactions/:id`: Update details of a specific social interaction.
-`DELETE /patients/:patient_id/social_interactions/:id`: Delete a specific social interaction.
+`GET /api/v1/patients/:patient_id/social_interactions`: Retrieve a list of all social interactions.
+`GET /api/v1/patients/:patient_id/social_interactions/:id`: Retrieve details of a specific social interaction.
+`POST /api/v1/patients/:patient_id/social_interactions`: Create a new social interaction.
+`PUT /api/v1/patients/:patient_id/social_interactions/:id`: Update details of a specific social interaction.
+`DELETE /api/v1/patients/:patient_id/social_interactions/:id`: Delete a specific social interaction.
 
 Patterns:
 
-`GET /patients/:patient_id/patterns`: Retrieve a list of all social interactions.
+`GET /api/v1/patients/:patient_id/patterns`: Retrieve a list of all social interactions.
 
 ## Deployment
 
