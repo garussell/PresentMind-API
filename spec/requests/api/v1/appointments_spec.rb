@@ -97,4 +97,97 @@ RSpec.describe "Api::V1::Appointments", type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
   end
+
+  describe "appointments#create" do
+    it "returns http success" do
+      initial_count = @patient.appointments.count
+
+      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
+      response_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status(:created)
+      expect(response_data).to be_a(Hash)
+
+      expect(response_data).to have_key(:message)
+      expect(response_data[:message]).to be_a(String)
+      expect(response_data[:message]).to eq("Appointment created successfully")
+
+      expect(@patient.appointments.count).to eq(initial_count + 1)
+    end
+
+    it "sad path: returns error if patient not found" do
+      post "/api/v1/patients/0/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
+    
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sad path: returns error if no token" do
+      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe "appointments#update" do
+    it "returns http success" do
+      patch "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
+            params: { appointment: { title: "UpdatedTitle" } },
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:success)
+      expect(@appointment.reload.title).to eq("UpdatedTitle")
+    end
+
+    it "sad path: returns error if patient not found" do
+      patch "/api/v1/patients/0/appointments/1",
+            params: { appointment: { title: "UpdatedTitle" } },
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sad path: returns error if appointment not found" do
+      patch "/api/v1/patients/#{@patient.id}/appointments/0",
+            params: { appointment: { title: "UpdatedTitle" } },
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sad path: returns error if no token" do 
+      patch "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
+            params: { appointment: { title: "UpdatedTitle" } }
+    
+      expect(response).to have_http_status(:unauthorized)      
+    end
+  end
+
+  describe "appointments#destroy" do
+    it "returns http success" do
+      delete "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it "sad path: returns error if patient not found" do
+      delete "/api/v1/patients/0/appointments/1",
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sad path: returns error if appointment not found" do
+      delete "/api/v1/patients/#{@patient.id}/appointments/0",
+            headers: { 'Authorization': @valid_token }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sad path: returns error if no token" do 
+      delete "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}"
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
 end
