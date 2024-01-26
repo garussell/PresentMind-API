@@ -27,7 +27,7 @@ Authorization (MVP):
 
 In lieu of a front-end, I use the following curl command in the terminal to receive a Bearer token.  The front-end application with have the responsibility to send a request to Auth0 to receive the `access_token`, which will be necessary to authenticate retrieval of data from this API:
 
-Note: Auth0 will provide this command with your client_id and client_secret when you create an account with them.  Here, they are stored in `.env`.
+Note: Auth0 will provide this command with your specific client_id and client_secret dynamically added when you create an account with them.  Here, my keys are stored in `.env`.
 
 ```
 curl --request POST \
