@@ -251,6 +251,17 @@ Appointments:
 `PUT /api/v1/patients/:patient_id/appointments/:id`: Update details of a specific appointment.
 `DELETE /api/v1/patients/:patient_id/appointments/:id`: Delete a specific appointment.
 
+- the body of the request should include "appointment" for CRUD actions like this:
+```
+e.g., "Update" action
+
+{
+  "appointment": {
+    "title": "UpdatedTitle"
+  }
+}
+```
+
 Mindfulness Activities:
 
 `GET /api/v1/patients/:patient_id/mindfulness_activities`: Retrieve a list of all mindfulness activities.
