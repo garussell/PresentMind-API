@@ -25,6 +25,20 @@ Therapist Profiles:
 Authorization (MVP):
 - Use [AuthO](https://auth0.com/)
 
+In lieu of a front-end, I use the following curl command in the terminal to receive a Bearer token.  The front-end application with have the responsibility to send a request to Auth0 to receive the `access_token`, which will be necessary to authenticate retrieval of data from this API:
+
+Note: Auth0 will provide this command with your client_id and client_secret when you create an account with them.  Here, they are stored in `.env`.
+
+```
+curl --request POST \
+  --url https://dev-g05vewm4v3p5lud5.us.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET","audience":"http://localhost:3000","grant_type":"client_credentials"}'
+```
+Auth0 also provides a Rubyist way of doing it, which is functionally the same as using `curl` however the response does not contain statistical analysis that comes with curl and is perceptively quicker.
+
+Therefore, for testing, a 'shared_context' block was setup in `spec_helper` and `include_context` in every request spec file using Ruby.
+
 Privacy/Security:
 - work in progress
 
