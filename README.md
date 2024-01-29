@@ -1,6 +1,6 @@
 # Present Mind
 
-This is a therapy tracker app that is currently in development.  The plan is to have two user roles (patient, therapist) and use `AuthO` by `Okta` for user authentication.  This application will not use `bcrypt` and password_digest to practice using auth servers for secure logins.  The MVP will contain user authentication and patient profile with mood tracking.  
+This is a therapy tracker app that is currently in development.  The plan is to have two user roles (patient, therapist) and use `AuthO` by `Okta` for user authentication.  This application will not use `bcrypt` and `password_digest` to practice using auth servers for secure logins.  The MVP will contain user authentication and patient profile with mood tracking.  
 
 ### Planned Features
 Models:
@@ -24,6 +24,20 @@ Therapist Profiles:
 
 Authorization (MVP):
 - Use [AuthO](https://auth0.com/)
+
+In lieu of a front-end, I use the following curl command in the terminal to receive a Bearer token.  The front-end application with have the responsibility to send a request to Auth0 to receive the `access_token`, which will be necessary to authenticate retrieval of data from this API:
+
+Note: Auth0 will provide this command with your specific client_id and client_secret dynamically added when you create an account with them.  Here, my keys are stored in `.env`.
+
+```
+curl --request POST \
+  --url https://dev-g05vewm4v3p5lud5.us.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"YOUR_CLIENT_ID","client_secret":"YOUR_CLIENT_SECRET","audience":"http://localhost:3000","grant_type":"client_credentials"}'
+```
+Auth0 also provides a Rubyist way of doing it, which is functionally the same as using `curl` however the response does not contain statistical analysis that comes with curl and is perceptively quicker.
+
+Therefore, for testing, a 'shared_context' block was setup in `spec_helper` and `include_context` in every request spec file using Ruby.
 
 Privacy/Security:
 - work in progress
@@ -194,7 +208,7 @@ Patients:
 `GET /api/v1/patients`: Retrieve a list of all patients.
 `GET /api/v1/patients/:id`: Retrieve details of a specific patient.
 `POST /api/v1/patients`: Create a new patient.
-`PUT /api/v1/patients/:id`: Update details of a specific patient.
+`PATCH /api/v1/patients/:id`: Update details of a specific patient.
 `DELETE /api/v1/patients/:id`: Delete a specific patient.
 
 Therapists:
@@ -202,7 +216,7 @@ Therapists:
 `GET /therapists`: Retrieve a list of all therapists.
 `GET /therapists/:id`: Retrieve details of a specific therapist.
 `POST /therapists`: Create a new therapist.
-`PUT /therapists/:id`: Update details of a specific therapist.
+`PATCH /therapists/:id`: Update details of a specific therapist.
 `DELETE /therapists/:id`: Delete a specific therapist.
 
 Nutrition Entries:
@@ -210,7 +224,7 @@ Nutrition Entries:
 `GET /api/v1/patients/:patient_id/nutrition_entries`: Retrieve a list of all nutrition entries.
 `GET /api/v1/patients/:patient_id/nutrition_entries/:id`: Retrieve details of a specific nutrition entry.
 `POST /api/v1/patients/:patient_id/nutrition_entries`: Create a new nutrition entry.
-`PUT /api/v1/patients/:patient_id/nutrition_entries/:id`: Update details of a specific nutrition entry.
+`PATCH /api/v1/patients/:patient_id/nutrition_entries/:id`: Update details of a specific nutrition entry.
 `DELETE /api/v1/patients/:patient_id/nutrition_entries/:id`: Delete a specific nutrition entry.
 
 Exercise Entries:
@@ -218,7 +232,7 @@ Exercise Entries:
 `GET /api/v1/patients/:patient_id/exercise_entries`: Retrieve a list of all exercise entries.
 `GET /api/v1/patients/:patient_id/exercise_entries/:id`: Retrieve details of a specific exercise entry.
 `POST /api/v1/patients/:patient_id/exercise_entries`: Create a new exercise entry.
-`PUT /api/v1/patients/:patient_id/exercise_entries/:id`: Update details of a specific exercise entry.
+`PATCH /api/v1/patients/:patient_id/exercise_entries/:id`: Update details of a specific exercise entry.
 `DELETE /api/v1/patients/:patient_id/exercise_entries/:id`: Delete a specific exercise entry.
 
 Journal Entries:
@@ -226,7 +240,7 @@ Journal Entries:
 `GET /api/v1/patients/:patient_id/journal_entries`: Retrieve a list of all journal entries.
 `GET /api/v1/patients/:patient_id/journal_entries/:id`: Retrieve details of a specific journal entry.
 `POST /api/v1/patients/:patient_id/journal_entries`: Create a new journal entry.
-`PUT /api/v1/patients/:patient_id/journal_entries/:id`: Update details of a specific journal entry.
+`PATCH /api/v1/patients/:patient_id/journal_entries/:id`: Update details of a specific journal entry.
 `DELETE /api/v1/patients/:patient_id/journal_entries/:id`: Delete a specific journal entry.
 
 Appointments:
@@ -234,15 +248,26 @@ Appointments:
 `GET /api/v1/patients/:patient_id/appointments`: Retrieve a list of all appointments.
 `GET /api/v1/patients/:patient_id/appointments/:id`: Retrieve details of a specific appointment.
 `POST /api/v1/patients/:patient_id/appointments`: Create a new appointment.
-`PUT /api/v1/patients/:patient_id/appointments/:id`: Update details of a specific appointment.
+`PATCH /api/v1/patients/:patient_id/appointments/:id`: Update details of a specific appointment.
 `DELETE /api/v1/patients/:patient_id/appointments/:id`: Delete a specific appointment.
+
+- the body of the request should include the "appointment" key for `PATCH`, and `DELETE` actions like this:
+```
+e.g., "Update" action JSON:
+
+{
+  "appointment": {
+    "title": "UpdatedTitle"
+  }
+}
+```
 
 Mindfulness Activities:
 
 `GET /api/v1/patients/:patient_id/mindfulness_activities`: Retrieve a list of all mindfulness activities.
 `GET /api/v1/patients/:patient_id/mindfulness_activities/:id`: Retrieve details of a specific mindfulness activity.
 `POST /api/v1/patients/:patient_id/mindfulness_activities`: Create a new mindfulness activity.
-`PUT /api/v1/patients/:patient_id/mindfulness_activities/:id`: Update details of a specific mindfulness activity.
+`PATCH /api/v1/patients/:patient_id/mindfulness_activities/:id`: Update details of a specific mindfulness activity.
 `DELETE /api/v1/patients/:patient_id/mindfulness_activities/:id`: Delete a specific mindfulness activity.
 
 Sleep Entries:
@@ -250,7 +275,7 @@ Sleep Entries:
 `GET /api/v1/patients/:patient_id/sleep_entries`: Retrieve a list of all sleep entries.
 `GET /api/v1/patients/:patient_id/sleep_entries/:id`: Retrieve details of a specific sleep entry.
 `POST /api/v1/patients/:patient_id/sleep_entries`: Create a new sleep entry.
-`PUT /api/v1/patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
+`PATCH /api/v1/patients/:patient_id/sleep_entries/:id`: Update details of a specific sleep entry.
 `DELETE /api/v1/patients/:patient_id/sleep_entries/:id`: Delete a specific sleep entry.
 
 Medication Entries:
@@ -258,7 +283,7 @@ Medication Entries:
 `GET /api/v1/patients/:patient_id/medication_entries`: Retrieve a list of all medication entries.
 `GET /api/v1/patients/:patient_id/medication_entries/:id`: Retrieve details of a specific medication entry.
 `POST /api/v1/patients/:patient_id/medication_entries`: Create a new medication entry.
-`PUT /api/v1/patients/:patient_id/medication_entries/:id`: Update details of a specific medication entry.
+`PATCH /api/v1/patients/:patient_id/medication_entries/:id`: Update details of a specific medication entry.
 `DELETE /api/v1/patients/:patient_id/medication_entries/:id`: Delete a specific medication entry.
 
 Social Interactions:
@@ -266,7 +291,7 @@ Social Interactions:
 `GET /api/v1/patients/:patient_id/social_interactions`: Retrieve a list of all social interactions.
 `GET /api/v1/patients/:patient_id/social_interactions/:id`: Retrieve details of a specific social interaction.
 `POST /api/v1/patients/:patient_id/social_interactions`: Create a new social interaction.
-`PUT /api/v1/patients/:patient_id/social_interactions/:id`: Update details of a specific social interaction.
+`PATCH /api/v1/patients/:patient_id/social_interactions/:id`: Update details of a specific social interaction.
 `DELETE /api/v1/patients/:patient_id/social_interactions/:id`: Delete a specific social interaction.
 
 Patterns:

@@ -92,3 +92,30 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+# Obtain a token from Auth0 to use in tests
+RSpec.shared_context "with valid token" do
+  let(:valid_token) do
+    require 'uri'
+    require 'net/http'
+
+    url = URI("https://dev-g05vewm4v3p5lud5.us.auth0.com/oauth/token")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request["content-type"] = 'application/json'
+    request.body = "{\"client_id\":\"#{ENV['AUTH0_CLIENT_ID']}\",\"client_secret\":\"#{ENV['AUTH0_CLIENT_SECRET']}\",\"audience\":\"http://localhost:3000\",\"grant_type\":\"client_credentials\"}"
+
+    response = http.request(request)
+  end
+
+  # Retrieve the token from the response
+  before do
+    response = JSON.parse(valid_token.body)
+    @valid_token = 'Bearer ' + "#{response["access_token"]}"
+  end
+end
+
