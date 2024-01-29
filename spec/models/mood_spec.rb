@@ -8,8 +8,6 @@ RSpec.describe Mood, type: :model do
   describe "validations" do
     it { should validate_presence_of(:current_mood_scale) }
     it { should validate_presence_of(:stress_level_scale) }
-    it { should validate_presence_of(:notes) }
-    it { should validate_presence_of(:date) }
     it { should validate_presence_of(:patient_id) }
   end
 

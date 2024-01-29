@@ -143,8 +143,8 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
   describe "medication_entries#update" do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/medication_entries/#{@medication_entry.id}",
-            params: { medication_entry: { name: "medicationUpdate", dose: "100mg", purpose: "to focus better", schedule: "daily" } },
-            headers: {'Authorization': @valid_token}
+          params: { medication_entry: { name: "medicationUpdate", dose: "100mg", purpose: "to focus better", schedule: "daily" } },
+          headers: {'Authorization': @valid_token}
 
       response_data = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(:ok)
