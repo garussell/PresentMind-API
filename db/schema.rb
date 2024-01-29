@@ -71,8 +71,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   create_table "moods", force: :cascade do |t|
     t.integer "current_mood_scale"
     t.integer "stress_level_scale"
-    t.string "notes"
-    t.date "date"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -3,8 +3,6 @@ class CreateMoods < ActiveRecord::Migration[7.1]
     create_table :moods do |t|
       t.integer :current_mood_scale
       t.integer :stress_level_scale
-      t.string :notes
-      t.date :date
       t.references :patient, null: false, foreign_key: true
 
       t.timestamps
