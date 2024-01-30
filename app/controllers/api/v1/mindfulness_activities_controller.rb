@@ -38,7 +38,7 @@ class Api::V1::MindfulnessActivitiesController < ApplicationController
       activity = patient.mindfulness_activities.find(params[:id])
 
       activity.update(mindfulness_activity_params)
-      render
+      render json: { message: "Mindfulness activity updated successfully" }, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end
