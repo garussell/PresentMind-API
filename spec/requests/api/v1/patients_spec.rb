@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
     @patient = create(:patient, therapist: @therapist)
   end
 
-  describe "show" do
+  describe "show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}", headers: {'Authorization': @valid_token}
       
@@ -58,7 +58,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
     end
   end
 
-  describe "update" do
+  describe "update", :vcr do
     it "updates a patient" do
       patch "/api/v1/patients/#{@patient.id}", 
         headers: {'Authorization': @valid_token},
@@ -94,7 +94,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
     end
   end
 
-  describe "create" do
+  describe "create", :vcr do
     it "creates a patient" do
       post "/api/v1/patients", 
         headers: {'Authorization': @valid_token},
@@ -148,7 +148,7 @@ RSpec.describe "Api::V1::Patients", type: :request do
     end
   end
 
-  describe "destroy" do
+  describe "destroy", :vcr do
     it "deletes a patient" do
       delete "/api/v1/patients/#{@patient.id}", 
         headers: {'Authorization': @valid_token}

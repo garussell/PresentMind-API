@@ -24,9 +24,13 @@ class Api::V1::AppointmentsController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
+      appointment = patient.appointments.create(appointment_params)
 
-      patient.appointments.create(appointment_params)
-      render json: { message: "Appointment created successfully" }, status: :created
+      if appointment.save
+        render json: { message: "Appointment created successfully" }, status: :created
+      else
+        render json: { errors: appointment.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end

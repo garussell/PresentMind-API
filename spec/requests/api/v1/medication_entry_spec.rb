@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
     @medication_entry = create(:medication_entry, patient: @patient)
   end
 
-  describe "medication_entries#index" do
+  describe "medication_entries#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/medication_entries", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -56,7 +56,7 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
     end
   end
 
-  describe "medication_entries#show" do
+  describe "medication_entries#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/medication_entries/#{@medication_entry.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -108,7 +108,7 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
     end
   end
 
-  describe "medication_entries#create" do
+  describe "medication_entries#create", :vcr do
     it "returns http success" do
       initial_count = MedicationEntry.count
       post "/api/v1/patients/#{@patient.id}/medication_entries",
@@ -122,6 +122,23 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
       expect(response_data).to have_key(:message)
       expect(response_data[:message]).to be_a(String)
       expect(response_data[:message]).to eq("Medication entry created successfully")
+    end
+
+    it "sad path: returns error if no medication entry params" do
+      initial_count = MedicationEntry.count
+      
+      post "/api/v1/patients/#{@patient.id}/medication_entries",
+            params: { medication_entry: { dose: "10mg", purpose: "to focus better", schedule: "daily" } },
+            headers: {'Authorization': @valid_token}
+      
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(:bad_request)
+      expect(MedicationEntry.count).to eq(initial_count)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Name can't be blank")
     end
 
     it "sad path: returns error if patient not found" do
@@ -140,11 +157,11 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
     end
   end
 
-  describe "medication_entries#update" do
+  describe "medication_entries#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/medication_entries/#{@medication_entry.id}",
-            params: { medication_entry: { name: "medicationUpdate", dose: "100mg", purpose: "to focus better", schedule: "daily" } },
-            headers: {'Authorization': @valid_token}
+          params: { medication_entry: { name: "medicationUpdate", dose: "100mg", purpose: "to focus better", schedule: "daily" } },
+          headers: {'Authorization': @valid_token}
 
       response_data = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(:ok)
@@ -178,7 +195,7 @@ RSpec.describe "Api::V1::MedicationEntries", type: :request do
     end
   end
 
-  describe "medication_entries#destroy" do
+  describe "medication_entries#destroy", :vcr do
     it "returns http success" do
       initial_count = MedicationEntry.count
       delete "/api/v1/patients/#{@patient.id}/medication_entries/#{@medication_entry.id}", headers: {'Authorization': @valid_token}

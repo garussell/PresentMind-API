@@ -22,9 +22,13 @@ class Api::V1::ExerciseEntriesController < ApplicationController
   def create
     begin 
       patient = Patient.find(params[:patient_id])
+      exercise = patient.exercise_entries.create(exercise_entry_params)
 
-      patient.exercise_entries.create(exercise_entry_params)
-      render json: { message: "Exercise entry created successfully" }, status: :created
+      if exercise.save
+        render json: { message: "Exercise entry created successfully" }, status: :created
+      else
+        render json: { errors: exercise.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end

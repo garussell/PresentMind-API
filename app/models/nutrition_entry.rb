@@ -4,10 +4,11 @@ class NutritionEntry < ApplicationRecord
   validates_presence_of :food_item, 
                         :calories, 
                         :number_of_servings, 
-                        :healthy, 
                         :cups_of_water, 
                         :fruits_and_veg_servings, 
-                        :correct_portion, 
                         :date, 
                         :patient_id
+
+  validates :healthy, inclusion: { in: [true, false] }
+  validates :correct_portion, inclusion: { in: [true, false] }
 end

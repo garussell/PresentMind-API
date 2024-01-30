@@ -12,9 +12,10 @@ RSpec.describe SocialInteraction, type: :model do
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:duration_in_minutes) }
     it { should validate_presence_of(:date) }
-    it { should validate_presence_of(:alcohol_use) }
-    it { should validate_presence_of(:drug_use) }
     it { should validate_presence_of(:patient_id) }
+
+    it { should validate_inclusion_of(:alcohol_use).in_array([true, false]) }
+    it { should validate_inclusion_of(:drug_use).in_array([true, false]) }
   end
 
   describe "enum" do

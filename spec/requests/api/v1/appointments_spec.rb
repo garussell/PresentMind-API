@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     @appointment = create(:appointment, patient: @patient)
   end
 
-  describe "appointments#index" do
+  describe "appointments#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/appointments", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -52,7 +52,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     end
   end
 
-  describe "appointments#show" do
+  describe "appointments#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -98,7 +98,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     end
   end
 
-  describe "appointments#create" do
+  describe "appointments#create", :vcr do
     it "returns http success" do
       initial_count = @patient.appointments.count
 
@@ -115,6 +115,22 @@ RSpec.describe "Api::V1::Appointments", type: :request do
       expect(@patient.appointments.count).to eq(initial_count + 1)
     end
 
+    it "sad path: returns error if missing attribute" do
+      initial_count = @patient.appointments.count
+
+      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
+      response_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response_data).to be_a(Hash)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to eq("Title can't be blank")
+
+      expect(@patient.appointments.count).to eq(initial_count)
+    end
+
     it "sad path: returns error if patient not found" do
       post "/api/v1/patients/0/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
     
@@ -128,7 +144,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     end
   end
 
-  describe "appointments#update" do
+  describe "appointments#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
             params: { appointment: { title: "UpdatedTitle" } },
@@ -162,7 +178,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     end
   end
 
-  describe "appointments#destroy" do
+  describe "appointments#destroy", :vcr do
     it "returns http success" do
       delete "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
             headers: { 'Authorization': @valid_token }

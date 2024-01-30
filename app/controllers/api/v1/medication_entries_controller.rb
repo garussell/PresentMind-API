@@ -22,9 +22,13 @@ class Api::V1::MedicationEntriesController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
+      medication = patient.medication_entries.create(medication_entry_params)
 
-      patient.medication_entries.create(medication_entry_params)
-      render json: { message: "Medication entry created successfully" }, status: :created
+      if medication.save
+        render json: { message: "Medication entry created successfully" }, status: :created
+      else
+        render json: { errors: medication.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end

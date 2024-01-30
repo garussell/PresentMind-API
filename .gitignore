@@ -33,3 +33,6 @@
 /config/master.key
 
 /coverage/
+
+# VCR Fixtures
+/spec/fixtures/*

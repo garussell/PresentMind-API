@@ -1,0 +1,203 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://dev-g05vewm4v3p5lud5.us.auth0.com/oauth/token",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"client_id\":\"VfGY7PGnGzvijwWGEjTP2fRDcq6ukx5e\",\"client_secret\":\"x8kWKu6pXYO4OY14biTke_Td1osvqwWxoQQoy6Bq0_HqWuOM8-NSw7y_C01hbR-j\",\"audience\":\"http://localhost:3000\",\"grant_type\":\"client_credentials\"}"
+        },
+        "headers": {
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "User-Agent": [
+            "Ruby"
+          ],
+          "Host": [
+            "dev-g05vewm4v3p5lud5.us.auth0.com"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 30 Jan 2024 19:25:13 GMT"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Cf-Ray": [
+            "84dc197dad9e5387-DEN"
+          ],
+          "Cf-Cache-Status": [
+            "DYNAMIC"
+          ],
+          "Cache-Control": [
+            "no-store"
+          ],
+          "Set-Cookie": [
+            "did=s%3Av0%3A4a55cc70-bfa5-11ee-976a-bd08ce7aaf88.ac5IrLEkMiDElJ9PDVjNkCYjg6K03FXynSIcAN%2FIG%2BE; Max-Age=31557600; Path=/; Expires=Thu, 30 Jan 2025 01:25:13 GMT; HttpOnly; Secure; SameSite=None",
+            "did_compat=s%3Av0%3A4a55cc70-bfa5-11ee-976a-bd08ce7aaf88.ac5IrLEkMiDElJ9PDVjNkCYjg6K03FXynSIcAN%2FIG%2BE; Max-Age=31557600; Path=/; Expires=Thu, 30 Jan 2025 01:25:13 GMT; HttpOnly; Secure"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubDomains"
+          ],
+          "Vary": [
+            "Accept-Encoding, Origin"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "X-Auth0-Dl": [
+            "9"
+          ],
+          "X-Auth0-Requestid": [
+            "7d0dce9c76745af80925"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Ratelimit-Limit": [
+            "300"
+          ],
+          "X-Ratelimit-Remaining": [
+            "299"
+          ],
+          "X-Ratelimit-Reset": [
+            "1706642714"
+          ],
+          "Server": [
+            "cloudflare"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=86400"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "string": "{\"access_token\":\"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRadk9vWmEyMHdsdUJFWXZIRjZhSCJ9.eyJpc3MiOiJodHRwczovL2Rldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJWZkdZN1BHbkd6dmlqd1dHRWpUUDJmUkRjcTZ1a3g1ZUBjbGllbnRzIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWF0IjoxNzA2NjQyNzEzLCJleHAiOjE3MDY3MjkxMTMsImF6cCI6IlZmR1k3UEduR3p2aWp3V0dFalRQMmZSRGNxNnVreDVlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.hh76AIMTPVEgryqLm94l5yxtpX4ZOaKgGMWJoyMChzyeKQBU-e9xcTOFGfInhCtbZAKaBFt1Onpij1z2HxVyN4J_kuHbkoEgE1ARE5Bn0_nyh5IMxl-H0Qi8zVLutgko2S-I8YW5XnD7qa76C9E-RyMxjWiLUm96KymkP6sxoH25NnUAjCVBfEpkHyHaTb9_XFJdJmRYvvlaID0AdOYDde5zhTiUu8GIsv1bYAZp0bNEVnArFgDhk8YFa0LHG3PfQGhZ2D8vGFBYxY5VY908zGs_B7LlFqNoAZoHCgFNt5IfOA775MKAc2j26FlfhDmN8M3eEsN2JoakxAvTvzXIXA\",\"expires_in\":86400,\"token_type\":\"Bearer\"}"
+        }
+      },
+      "recorded_at": "Tue, 30 Jan 2024 19:25:13 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://dev-g05vewm4v3p5lud5.us.auth0.com/.well-known/jwks.json",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "User-Agent": [
+            "Ruby"
+          ],
+          "Host": [
+            "dev-g05vewm4v3p5lud5.us.auth0.com"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 30 Jan 2024 19:25:13 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Cf-Ray": [
+            "84dc197f18801f41-DEN"
+          ],
+          "Cf-Cache-Status": [
+            "HIT"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Age": [
+            "3"
+          ],
+          "Cache-Control": [
+            "public, max-age=15, stale-while-revalidate=15, stale-if-error=86400"
+          ],
+          "Last-Modified": [
+            "Tue, 30 Jan 2024 19:22:07 GMT"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubDomains"
+          ],
+          "Vary": [
+            "Accept-Encoding, Origin, Accept-Encoding"
+          ],
+          "Access-Control-Allow-Credentials": [
+            "false"
+          ],
+          "Access-Control-Expose-Headers": [
+            "X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset"
+          ],
+          "X-Auth0-Requestid": [
+            "712ee74761a7ab78bdae"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Ratelimit-Limit": [
+            "300"
+          ],
+          "X-Ratelimit-Remaining": [
+            "299"
+          ],
+          "X-Ratelimit-Reset": [
+            "1706642711"
+          ],
+          "Server": [
+            "cloudflare"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=86400"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "string": "{\"keys\":[{\"kty\":\"RSA\",\"use\":\"sig\",\"n\":\"tsMLo3nNOAsPss-YkOPyN9Ttxf-9aXtePOtNpXhGlYFxg0uhl2uXVpAV5iIfkGOGfr0muRNAUoYsXbZS29JMsNdVYSx_ks0ptsDJTe6uYWQOhFLhEOjsdAnLWsEzQxHN00F0O1hZHuZ__TZ1Jz-gXvTtp_YsWu49Shn_Lv2BKQ298fHsv_5CEf1RDHVjMmddtM0ZoPbUBX9N9n7CMJAdNeYK39Wv85Rqg3T53AIb4T2K-UB7AKy8odCsiEyrCEf9mcVdCCaKg5VD_iE88YhGCbYov9QZtOFs0ZSr1NQDsnTbSjfk3w7jaaPkcRJwklQ2mK4GeCb4hMatDMRU0DXfaw\",\"e\":\"AQAB\",\"kid\":\"TZvOoZa20wluBEYvHF6aH\",\"x5t\":\"aSmUdX-JRVmyF0Gk01-pM5pVip0\",\"x5c\":[\"MIIDHTCCAgWgAwIBAgIJL++xLnjIUA1PMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNVBAMTIWRldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbTAeFw0yNDAxMTkxNTQwNTlaFw0zNzA5MjcxNTQwNTlaMCwxKjAoBgNVBAMTIWRldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALbDC6N5zTgLD7LPmJDj8jfU7cX/vWl7XjzrTaV4RpWBcYNLoZdrl1aQFeYiH5Bjhn69JrkTQFKGLF22UtvSTLDXVWEsf5LNKbbAyU3urmFkDoRS4RDo7HQJy1rBM0MRzdNBdDtYWR7mf/02dSc/oF707af2LFruPUoZ/y79gSkNvfHx7L/+QhH9UQx1YzJnXbTNGaD21AV/TfZ+wjCQHTXmCt/Vr/OUaoN0+dwCG+E9ivlAewCsvKHQrIhMqwhH/ZnFXQgmioOVQ/4hPPGIRgm2KL/UGbThbNGUq9TUA7J020o35N8O42mj5HEScJJUNpiuBngm+ITGrQzEVNA132sCAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUc1GmhUiN+QZDBwuDx+4XyWPTA6owDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3DQEBCwUAA4IBAQBjFW2Qdo328yU9eAWZVuPACGla6w71TJ+9cax1+RnUC1jY4tr2Y1EWV0Q9W/oE7ELEJmNz/pG2NZHT+Z7xZ8zxMX+tiARJKHPsuY/OOXC9fzGEfLhhcJqE2+S6JchXBNrZgbHni2ofGLR/lJzSEAMDlNQ5ZljYl7vltvJAVNyitoEsFsy+YqB8iPEPlwL6qaC+42NduzId05TQ9VuVGeTo9Ub7LiDfoEb61ByZIj/Ajs83KSyrbjReNey2ffAD20fO6csSTYPQA1wAQm1kv8AAqd+pzGhPCFjf1HFAGfB9yz906aLL/adoLVtQb/infdR1j/WSeKWCuH3N3cAMXhJS\"],\"alg\":\"RS256\"},{\"kty\":\"RSA\",\"use\":\"sig\",\"n\":\"xTyoTqcyf9-rV2TZ7iMCz8BCJQlqajLMCe4lsV7b0UQzZNeVW3w1WZsbD3agFedOm6nmBWI0DqZndljpUThBXkbfXGZou9nZF4tECafwz_AhuG-h-TZYtwZndcHeXiXefnjQhzdDKefIe1CAuWRHHXFDuObL1dBU6VS6rwsfxSJBEAWxI7Av-7GD6K2G1dfgK-nUhSLwbOCPannSXKzFWmAK9iMg17FWJFtKgNqXu5vhMVzI97yI2Okrecv3l9xiw_NZLYt2Vyrb0sZm-A098osTnPk81cTNSC7BU3brQHHCkjZWTpMq6FcjZvOmU4fo77OXaR7uvzx0uwVaNV1trw\",\"e\":\"AQAB\",\"kid\":\"hcxZqsce-ZrbvEl0f10Ek\",\"x5t\":\"FXX28GOlIhBmyp5X95DO_26kndc\",\"x5c\":[\"MIIDHTCCAgWgAwIBAgIJU+OZ5LLmtMGpMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNVBAMTIWRldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbTAeFw0yNDAxMTkxNTQwNTlaFw0zNzA5MjcxNTQwNTlaMCwxKjAoBgNVBAMTIWRldi1nMDV2ZXdtNHYzcDVsdWQ1LnVzLmF1dGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMU8qE6nMn/fq1dk2e4jAs/AQiUJamoyzAnuJbFe29FEM2TXlVt8NVmbGw92oBXnTpup5gViNA6mZ3ZY6VE4QV5G31xmaLvZ2ReLRAmn8M/wIbhvofk2WLcGZ3XB3l4l3n540Ic3QynnyHtQgLlkRx1xQ7jmy9XQVOlUuq8LH8UiQRAFsSOwL/uxg+ithtXX4Cvp1IUi8Gzgj2p50lysxVpgCvYjINexViRbSoDal7ub4TFcyPe8iNjpK3nL95fcYsPzWS2Ldlcq29LGZvgNPfKLE5z5PNXEzUguwVN260BxwpI2Vk6TKuhXI2bzplOH6O+zl2ke7r88dLsFWjVdba8CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUWuSMMCYJc5/YSpvfzMdljO1xzXEwDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3DQEBCwUAA4IBAQB0Wjs944jkvQPXb4MmMkyioI2Bl8MWpIH1+PGZ6RlxbCr7uXU2xBG9zJDXc+rODoVrwHV5GYTWh2LkQdtj4qYWOOLTLppke9DeRBqhw0XFSqnfcwbfOkrV5Kkz9NNx4an6X/qKKOARK6IcKHKM+2m+wLnmlW7K3VK72Ts6hw1/9dVRdNaKTGmkg5nkh99N+ML9F08SOhKczOPftdDI0i65ffmWQJE0t+jkJsmJkN/IeXCwFXVL+QnCWikIqzDpsRb3FpI63RTHE5Ay0/TR8lKsw08BlyuG8x4VhWrDMO0IKkdAlX/A5nFZDgP5XbFC0z27XQ0IpiUTAE8lgfrwvHx3\"],\"alg\":\"RS256\"}]}"
+        }
+      },
+      "recorded_at": "Tue, 30 Jan 2024 19:25:13 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

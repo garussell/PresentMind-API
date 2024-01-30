@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
     @journal_entry = create(:journal_entry, patient: @patient)
   end
 
-  describe "journal_entries#index" do
+  describe "journal_entries#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/journal_entries", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -53,7 +53,7 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
     end
   end
 
-  describe "journal_entries#show" do 
+  describe "journal_entries#show", :vcr do 
     it "returns http success" do  
       get "/api/v1/patients/#{@patient.id}/journal_entries/#{@journal_entry.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -102,7 +102,7 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
     end
   end
 
-  describe "journal_entries#create" do
+  describe "journal_entries#create", :vcr do
     it "returns http success" do
       post "/api/v1/patients/#{@patient.id}/journal_entries", 
             headers: {'Authorization': @valid_token}, 
@@ -114,6 +114,22 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
       expect(response_data).to have_key(:message)
       expect(response_data[:message]).to be_a(String)
       expect(response_data[:message]).to eq("Journal entry created successfully")
+    end
+
+    it "sad path: returns error if missing required fields" do
+      initial_count = JournalEntry.count
+
+      post "/api/v1/patients/#{@patient.id}/journal_entries",
+          headers: {'Authorization': @valid_token},
+          params: { journal_entry: { content: "New Content", date: "2021-01-01" } }
+
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(:bad_request)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Title can't be blank")
     end
 
     it "sad path: returns error if patient not found" do
@@ -132,7 +148,7 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
     end
   end
 
-  describe "journal_entries#update" do
+  describe "journal_entries#update", :vcr do
     it "returns http success" do
       initial_title = @journal_entry.title
       initial_content = @journal_entry.content
@@ -178,7 +194,7 @@ RSpec.describe "Api::V1::JournalEntries", type: :request do
     end
   end
 
-  describe "journal_entries#destroy" do
+  describe "journal_entries#destroy", :vcr do
     it "returns http success" do
       initial_count = JournalEntry.count
       delete "/api/v1/patients/#{@patient.id}/journal_entries/#{@journal_entry.id}", headers: {'Authorization': @valid_token}

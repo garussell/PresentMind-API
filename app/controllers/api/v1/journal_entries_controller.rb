@@ -22,9 +22,13 @@ class Api::V1::JournalEntriesController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
+      journal = patient.journal_entries.create(journal_entry_params)
 
-      patient.journal_entries.create(journal_entry_params)
-      render json: { message: "Journal entry created successfully" }, status: :created
+      if journal.save
+        render json: { message: "Journal entry created successfully" }, status: :created
+      else
+        render json: { errors: journal.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end
