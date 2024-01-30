@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
     @nutrition_entry = create(:nutrition_entry, patient: @patient)
   end
 
-  describe "nutrition_entries#index" do
+  describe "nutrition_entries#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/nutrition_entries", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -68,7 +68,7 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
     end
   end
 
-  describe "nutrition_entries#show" do
+  describe "nutrition_entries#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/nutrition_entries/#{@nutrition_entry.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -132,7 +132,7 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
     end
   end
 
-  describe "nutrition_entries#create" do
+  describe "nutrition_entries#create", :vcr do
     it "returns http success" do
       initial_count = NutritionEntry.count
       post "/api/v1/patients/#{@patient.id}/nutrition_entries",
@@ -149,6 +149,24 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
       expect(response_data[:message]).to eq("Nutrition entry created successfully")
     end
 
+    it "sad path: returns error if missing required fields" do
+      initial_count = NutritionEntry.count
+
+      post "/api/v1/patients/#{@patient.id}/nutrition_entries",
+          params: { nutrition_entry: { calories: 95, number_of_servings: 1, healthy: true, cups_of_water: 1, fruits_and_veg_servings: 1, correct_portion: true, date: "2021-09-01", patient_id: @patient.id } },
+          headers: {'Authorization': @valid_token}
+
+      response_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status(:bad_request)
+      expect(NutritionEntry.count).to eq(initial_count)
+      expect(response_data).to have_key(:errors)
+
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Food item can't be blank")
+    end
+
     it "sad path: returns error if patient not found" do
       post "/api/v1/patients/0/nutrition_entries",
           params: { nutrition_entry: { food_item: "apple", calories: 95, number_of_servings: 1, healthy: true, cups_of_water: 1, fruits_and_veg_servings: 1, correct_portion: true, date: "2021-09-01", patient_id: @patient.id } },
@@ -163,7 +181,7 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
     end
   end
 
-  describe "nutrition_entries#update" do
+  describe "nutrition_entries#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/nutrition_entries/#{@nutrition_entry.id}",
           params: { nutrition_entry: { food_item: "pizza"} },
@@ -203,7 +221,7 @@ RSpec.describe "Api::V1::NutritionEntries", type: :request do
     end
   end
 
-  describe "nutrition_entries#destroy" do
+  describe "nutrition_entries#destroy", :vcr do
     it "returns http success" do
       initial_count = NutritionEntry.count
       delete "/api/v1/patients/#{@patient.id}/nutrition_entries/#{@nutrition_entry.id}",

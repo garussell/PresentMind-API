@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
     @mindfulness_activity = create(:mindfulness_activity, patient: @patient)
   end
 
-  describe "mindfulness_activities#index" do
+  describe "mindfulness_activities#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/mindfulness_activities", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -56,7 +56,7 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
     end
   end
 
-  describe "mindfulness_activities#show" do
+  describe "mindfulness_activities#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/mindfulness_activities/#{@mindfulness_activity.id}",
           headers: {'Authorization': @valid_token}
@@ -111,7 +111,7 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
     end
   end
 
-  describe "mindfulness_activities#create" do
+  describe "mindfulness_activities#create", :vcr do
     it "returns http success" do
       initial_count = MindfulnessActivity.count
       post "/api/v1/patients/#{@patient.id}/mindfulness_activities",
@@ -126,6 +126,22 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
       expect(response_data).to have_key(:message)
       expect(response_data[:message]).to be_a(String)
       expect(response_data[:message]).to eq("Mindfulness activity created successfully")
+    end
+
+    it "sad path: returns error if missing required fields" do
+      initial_count = MindfulnessActivity.count
+
+      post "/api/v1/patients/#{@patient.id}/mindfulness_activities",
+          params: { mindfulness_activity: { total_minutes: 30, notes: "felt great", date: "2021-01-01" } },
+          headers: {'Authorization': @valid_token}
+      
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(MindfulnessActivity.count).to eq(initial_count)
+      expect(response).to have_http_status(:bad_request)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Activity can't be blank")
     end
 
     it "sad path: returns error if patient not found" do
@@ -144,7 +160,7 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
     end
   end
 
-  describe "mindfulness_activities#update" do
+  describe "mindfulness_activities#update", :vcr do
     it "returns http success" do
       initial_activity = @mindfulness_activity.activity
       initial_minutes = @mindfulness_activity.total_minutes
@@ -184,7 +200,7 @@ RSpec.describe "Api::V1::MindfulnessActivities", type: :request do
     end
   end
 
-  describe "mindfulness_activities#destroy" do
+  describe "mindfulness_activities#destroy", :vcr do
     it "returns http success" do
       initial_count = MindfulnessActivity.count
       delete "/api/v1/patients/#{@patient.id}/mindfulness_activities/#{@mindfulness_activity.id}",

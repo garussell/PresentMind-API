@@ -9,10 +9,11 @@ RSpec.describe SleepEntry, type: :model do
     it { should validate_presence_of(:bed_time) }
     it { should validate_presence_of(:quality_rating) }
     it { should validate_presence_of(:total_hours) }
-    it { should validate_presence_of(:dream) }
     it { should validate_presence_of(:notes) }
     it { should validate_presence_of(:date) }
     it { should validate_presence_of(:patient_id) }
+
+    it { should validate_inclusion_of(:dream).in_array([true, false]) }
   end
 
   describe "enum" do

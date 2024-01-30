@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
     @sleep_entry = create(:sleep_entry, patient: @patient)
   end
 
-  describe "sleep_entries#index" do
+  describe "sleep_entries#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/sleep_entries", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -57,7 +57,7 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
     end
   end
 
-  describe "sleep_entries#show" do
+  describe "sleep_entries#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/sleep_entries/#{@sleep_entry.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -112,12 +112,12 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
     end
   end
 
-  describe "sleep_entries#create" do
+  describe "sleep_entries#create", :vcr do
     it "returns http success" do
       initial_count = SleepEntry.count
       post "/api/v1/patients/#{@patient.id}/sleep_entries", 
           headers: {'Authorization': @valid_token}, 
-          params: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id }
+          params: { sleep_entry: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id } }
 
       response_data = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(:created)
@@ -128,27 +128,42 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
       expect(SleepEntry.count).to eq(initial_count + 1)
     end
 
+    it "sad path: returns error if missing required fields" do
+      initial_count = SleepEntry.count
+
+      post "/api/v1/patients/#{@patient.id}/sleep_entries",
+          headers: {'Authorization': @valid_token},
+          params: { sleep_entry: { quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream" } }
+
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(:bad_request)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors]).to eq(["Bed time can't be blank", "Date can't be blank"])
+    end
+
     it "sad path: returns error if patient not found" do
       post "/api/v1/patients/0/sleep_entries",
           headers: {'Authorization': @valid_token},
-          params: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id }
+          params: { sleep_entry: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id } }
 
       expect(response).to have_http_status(:not_found)
     end
 
     it "sad path: returns error if no token" do
       post "/api/v1/patients/#{@patient.id}/sleep_entries",
-          params: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id }
+          params: { sleep_entry: { bed_time: "2021-08-01 22:00:00", quality_rating: :poor, total_hours: 8, dream: true, notes: "I had a dream", date: "2021-08-01", patient_id: @patient.id } }
 
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
-  describe "sleep_entries#update" do
+  describe "sleep_entries#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/sleep_entries/#{@sleep_entry.id}",
           headers: {'Authorization': @valid_token},
-          params: { quality_rating: :good }
+          params: { sleep_entry: { quality_rating: :good } }
 
       response_data = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(:ok)
@@ -162,7 +177,7 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
     it "sad path: returns error if patient not found" do
       patch "/api/v1/patients/0/sleep_entries/#{@sleep_entry.id}",
           headers: {'Authorization': @valid_token},
-          params: { quality_rating: :good }
+          params: { sleep_entry: { quality_rating: :good } }
 
       expect(response).to have_http_status(:not_found)
     end
@@ -177,13 +192,13 @@ RSpec.describe "Api::V1::SleepEntries", type: :request do
 
     it "sad path: returns error if no token" do
       patch "/api/v1/patients/#{@patient.id}/sleep_entries/#{@sleep_entry.id}",
-          params: { quality_rating: :good }
+          params: { sleep_entry: { quality_rating: :good } }
 
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
-  describe "sleep_entries#destroy" do
+  describe "sleep_entries#destroy", :vcr do
     it "returns http success" do
       initial_count = SleepEntry.count
       delete "/api/v1/patients/#{@patient.id}/sleep_entries/#{@sleep_entry.id}",

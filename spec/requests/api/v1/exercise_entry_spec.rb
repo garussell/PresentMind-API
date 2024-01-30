@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
     @exercise_entry = create(:exercise_entry, patient: @patient)
   end
 
-  describe "exercise_entries#index" do
+  describe "exercise_entries#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/exercise_entries", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -60,7 +60,7 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
     end
   end
 
-  describe "exercise_entries#show" do
+  describe "exercise_entries#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/exercise_entries/#{@exercise_entry.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -120,7 +120,7 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
     end
   end
 
-  describe "exercise_entries#create" do
+  describe "exercise_entries#create", :vcr do
     it "returns http success" do
       initial_count = ExerciseEntry.count
       post "/api/v1/patients/#{@patient.id}/exercise_entries",
@@ -134,6 +134,23 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
       expect(response_data).to have_key(:message)
       expect(response_data[:message]).to be_a(String)
       expect(response_data[:message]).to eq("Exercise entry created successfully")
+    end
+
+    it "sad path: returns error if missing required fields" do
+      initial_count = ExerciseEntry.count
+      
+      post "/api/v1/patients/#{@patient.id}/exercise_entries",
+            params: { exercise_entry: { exercise_type: "strength", total_minutes: 60, date: "2021-07-01" } },
+            headers: {'Authorization': @valid_token}
+
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(:bad_request)
+      expect(ExerciseEntry.count).to eq(initial_count)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Goal can't be blank")
     end
 
     it "sad path: returns error if patient not found" do
@@ -152,7 +169,7 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
     end
   end
 
-  describe "exercise_entries#update" do
+  describe "exercise_entries#update", :vcr do
     it "returns http success" do
       initial_goal = @exercise_entry.goal
       patch "/api/v1/patients/#{@patient.id}/exercise_entries/#{@exercise_entry.id}",
@@ -187,7 +204,7 @@ RSpec.describe "Api::V1::ExerciseEntries", type: :request do
     end
   end
 
-  describe "exercise_entries#destroy" do
+  describe "exercise_entries#destroy", :vcr do
     it "returns http success" do
       initial_count = ExerciseEntry.count
       delete "/api/v1/patients/#{@patient.id}/exercise_entries/#{@exercise_entry.id}",

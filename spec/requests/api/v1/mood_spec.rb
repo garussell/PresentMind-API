@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
     @mood = create(:mood, patient: @patient)
   end
 
-  describe "moods#index" do
+  describe "moods#index", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/moods", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -50,7 +50,7 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
     end
   end
 
-  describe "moods#show" do
+  describe "moods#show", :vcr do
     it "returns http success" do
       get "/api/v1/patients/#{@patient.id}/moods/#{@mood.id}", headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -96,7 +96,7 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
     end
   end
 
-  describe "moods#create" do
+  describe "moods#create", :vcr do
     it "returns http success" do
       initial_count = Mood.count
       post "/api/v1/patients/#{@patient.id}/moods",
@@ -111,6 +111,23 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
       expect(response_data).to have_key(:message)
       expect(response_data[:message]).to be_a(String)
       expect(response_data[:message]).to eq("Mood entry created successfully")
+    end
+
+    it "sad path: returns error if no mood params" do
+      initial_count = Mood.count   
+
+      post "/api/v1/patients/#{@patient.id}/moods",
+          headers: {'Authorization': @valid_token},
+          params: { mood: { stress_level_scale: :very_relaxed } }
+
+      response_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(:bad_request)
+      expect(Mood.count).to eq(initial_count)
+
+      expect(response_data).to have_key(:errors)
+      expect(response_data[:errors]).to be_an(Array)
+      expect(response_data[:errors].first).to be_a(String)
+      expect(response_data[:errors].first).to eq("Current mood scale can't be blank")
     end
 
     it "sad path: returns error if patient not found" do
@@ -129,7 +146,7 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
     end
   end
 
-  describe "moods#update" do
+  describe "moods#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/moods/#{@mood.id}",
           params: { mood: { current_mood_scale: :very_positive, stress_level_scale: :very_relaxed } },
@@ -171,7 +188,7 @@ RSpec.describe "Api::V1::MoodEntries", type: :request do
     end
   end
 
-  describe "moods#destroy" do
+  describe "moods#destroy", :vcr do
     it "returns http success" do
       initial_count = Mood.count
 
