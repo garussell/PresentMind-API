@@ -22,9 +22,13 @@ class Api::V1::SleepEntriesController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
-      patient.sleep_entries.create(sleep_entry_params)
+      sleep_entry = patient.sleep_entries.create(sleep_entry_params)
 
-      render json: { message: "Sleep entry created successfully" }, status: :created 
+      if sleep_entry.save
+        render json: { message: "Sleep entry created successfully" }, status: :created 
+      else
+        render json: { errors: sleep_entry.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end
@@ -59,6 +63,6 @@ class Api::V1::SleepEntriesController < ApplicationController
   private
 
   def sleep_entry_params
-    params.permit(:bed_time, :quality_rating, :total_hours, :dream, :notes, :date, :patient_id)
+    params.require(:sleep_entry).permit(:bed_time, :quality_rating, :total_hours, :dream, :notes, :date, :patient_id)
   end
 end

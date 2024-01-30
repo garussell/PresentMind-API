@@ -22,9 +22,13 @@ class Api::V1::NutritionEntriesController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
-      patient.nutrition_entries.create(nutrition_entry_params)
+      nutrition = patient.nutrition_entries.create(nutrition_entry_params)
 
-      render json: { message: "Nutrition entry created successfully" }, status: :created
+      if nutrition.save
+        render json: { message: "Nutrition entry created successfully" }, status: :created
+      else 
+        render json: { errors: nutrition.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end

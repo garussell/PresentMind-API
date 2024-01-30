@@ -22,9 +22,13 @@ class Api::V1::MindfulnessActivitiesController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
+      mindfulness = patient.mindfulness_activities.create(mindfulness_activity_params)
 
-      patient.mindfulness_activities.create(mindfulness_activity_params)
-      render json: { message: "Mindfulness activity created successfully" }, status: :created
+      if mindfulness.save
+        render json: { message: "Mindfulness activity created successfully" }, status: :created
+      else
+        render json: { errors: mindfulness.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end

@@ -22,9 +22,13 @@ class Api::V1::MoodsController < ApplicationController
   def create
     begin
       patient = Patient.find(params[:patient_id])
-      patient.moods.create(mood_params)
+      mood = patient.moods.create(mood_params)
 
-      render json: { message: "Mood entry created successfully" }, status: :created
+      if mood.save
+        render json: { message: "Mood entry created successfully" }, status: :created
+      else
+        render json: { errors: mood.errors.full_messages }, status: :bad_request
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :not_found
     end
