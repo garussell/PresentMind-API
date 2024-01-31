@@ -35,4 +35,4 @@
 /coverage/
 
 # VCR Fixtures
-/spec/fixtures/*
+/spec/fixtures/vcr_cassettes
