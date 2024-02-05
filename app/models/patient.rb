@@ -6,7 +6,6 @@ class Patient < ApplicationRecord
   has_many :journal_entries
   has_many :medication_entries
   has_many :mindfulness_activities
-  has_many :moods
   has_many :nutrition_entries
   has_many :sleep_entries
   has_many :social_interactions

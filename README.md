@@ -27,7 +27,7 @@ Authorization (MVP):
 
 In lieu of a front-end, I use the following curl command in the terminal to receive a Bearer token.  The front-end application with have the responsibility to send a request to Auth0 to receive the `access_token`, which will be necessary to authenticate retrieval of data from this API:
 
-Note: Auth0 will provide this command with your specific client_id and client_secret dynamically added when you create an account with them.  Here, my keys are stored in `.env`.
+Note: Auth0 will provide this command with your specific client_id and client_secret dynamically added when you create an account with them.  Here, my keys are stored in `.env`.  While in testing/development phase, the configuration on Auth0 are designated as `PresentMindApi (test application)` and the client_id and client_secret are generated for testing.  That is what is setup currently in `spec_helper` to retrieve the Bearer token for the test application.  Change this config for production on the Auth0 website then update the .env file.  The tests can remain mocked with VCR.
 
 ```
 curl --request POST \
