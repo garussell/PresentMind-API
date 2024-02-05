@@ -93,7 +93,7 @@ RSpec.configure do |config|
 =end
 end
 
-# Obtain a token from Auth0 to use in tests
+# Obtain a token from Auth0 to use in tests - from PresentMindApi (test application), essentially mocks the front-end which will send the token to the back-end for auth.
 RSpec.shared_context "with valid token" do
   let(:valid_token) do
     require 'uri'

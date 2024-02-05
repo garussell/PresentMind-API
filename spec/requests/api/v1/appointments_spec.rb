@@ -102,7 +102,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     it "returns http success" do
       initial_count = @patient.appointments.count
 
-      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
+      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { title: "Test", description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id, mood_before: "mb_very_negative", mood_after: "ma_slightly_negative", stress_before: "sb_very_stressed", stress_after: "sa_very_relaxed"  } }, headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:created)
@@ -118,7 +118,7 @@ RSpec.describe "Api::V1::Appointments", type: :request do
     it "sad path: returns error if missing attribute" do
       initial_count = @patient.appointments.count
 
-      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id } }, headers: {'Authorization': @valid_token}
+      post "/api/v1/patients/#{@patient.id}/appointments", params: { appointment: { description: "Test", start_time: "2021-09-01 12:00:00", end_time: "2021-09-01 13:00:00", patient_id: @patient.id, mood_before: "mb_very_negative", mood_after: "ma_slightly_negative", stress_before: "sb_very_stressed", stress_after: "sa_very_relaxed" } }, headers: {'Authorization': @valid_token}
       response_data = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:bad_request)
@@ -147,9 +147,9 @@ RSpec.describe "Api::V1::Appointments", type: :request do
   describe "appointments#update", :vcr do
     it "returns http success" do
       patch "/api/v1/patients/#{@patient.id}/appointments/#{@appointment.id}",
-            params: { appointment: { title: "UpdatedTitle" } },
+            params: { appointment: { title: "UpdatedTitle", mood_before: "mb_very_negative", mood_after: "ma_slightly_negative", stress_before: "sb_very_stressed", stress_after: "sa_very_relaxed" } },
             headers: { 'Authorization': @valid_token }
-
+            
       expect(response).to have_http_status(:success)
       expect(@appointment.reload.title).to eq("UpdatedTitle")
     end
