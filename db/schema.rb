@@ -19,6 +19,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.string "description"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,6 +34,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.integer "exercise_type"
     t.integer "total_minutes"
     t.date "date"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,6 +48,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.string "title"
     t.string "content"
     t.date "date"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,6 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.string "purpose"
     t.string "dose"
     t.string "schedule"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -62,19 +78,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.integer "total_minutes"
     t.string "notes"
     t.date "date"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_mindfulness_activities_on_patient_id"
-  end
-
-  create_table "moods", force: :cascade do |t|
-    t.integer "current_mood_scale"
-    t.integer "stress_level_scale"
-    t.bigint "patient_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["patient_id"], name: "index_moods_on_patient_id"
   end
 
   create_table "nutrition_entries", force: :cascade do |t|
@@ -85,6 +96,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.integer "cups_of_water"
     t.integer "fruits_and_veg_servings"
     t.boolean "correct_portion"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.date "date"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
@@ -107,26 +122,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   end
 
   create_table "patterns", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "average_mood"
-    t.integer "average_stress_level"
-    t.integer "average_sleep_quality"
-    t.integer "average_sleep_hours"
-    t.integer "average_stress_before_exercise"
-    t.integer "average_stress_after_exercise"
-    t.integer "average_mood_with_good_nutrition"
-    t.integer "average_mood_with_bad_nutrition"
-    t.integer "average_mood_before_journaling"
-    t.integer "average_mood_after_journaling"
-    t.integer "average_mood_before_mindfulness"
-    t.integer "average_mood_after_mindfulness"
-    t.integer "average_stress_before_mindfulness"
-    t.integer "average_stress_after_mindfulness"
-    t.integer "average_mood_before_social_event"
-    t.integer "average_mood_after_social_event"
-    t.integer "average_mood_before_meds"
-    t.integer "average_mood_after_meds"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -140,6 +135,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.boolean "dream"
     t.string "notes"
     t.date "date"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -155,6 +154,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.date "date"
     t.boolean "alcohol_use"
     t.boolean "drug_use"
+    t.integer "mood_before"
+    t.integer "mood_after"
+    t.integer "stress_before"
+    t.integer "stress_after"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -178,7 +181,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
   add_foreign_key "journal_entries", "patients"
   add_foreign_key "medication_entries", "patients"
   add_foreign_key "mindfulness_activities", "patients"
-  add_foreign_key "moods", "patients"
   add_foreign_key "nutrition_entries", "patients"
   add_foreign_key "patients", "therapists"
   add_foreign_key "patterns", "patients"

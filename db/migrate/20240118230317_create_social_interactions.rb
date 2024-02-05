@@ -9,6 +9,10 @@ class CreateSocialInteractions < ActiveRecord::Migration[7.1]
       t.date :date
       t.boolean :alcohol_use
       t.boolean :drug_use
+      t.integer :mood_before
+      t.integer :mood_after
+      t.integer :stress_before
+      t.integer :stress_after
       t.references :patient, null: false, foreign_key: true
 
       t.timestamps
