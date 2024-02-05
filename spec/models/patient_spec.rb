@@ -8,7 +8,6 @@ RSpec.describe Patient, type: :model do
     it { should have_many(:journal_entries) }
     it { should have_many(:medication_entries) }
     it { should have_many(:mindfulness_activities) }
-    it { should have_many(:moods) }
     it { should have_many(:nutrition_entries) }
     it { should have_many(:sleep_entries) }
     it { should have_many(:social_interactions) }
