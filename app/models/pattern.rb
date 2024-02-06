@@ -11,6 +11,7 @@ class Pattern < ApplicationRecord
   has_many :social_interactions, through: :patient
 
   ## Instance Methods
+  
   # Appointment Averages
   def average_mood_before_appointment
     calculate_average(appointments, :mood_before)
@@ -154,11 +155,11 @@ class Pattern < ApplicationRecord
     calculate_average(sleep_entries, :mood_after)
   end
 
-  def average_moods_after_dreams
+  def average_mood_after_dreams
     calculate_average(sleep_entries.select { |entry| entry.dream == true }, :mood_after)
   end
 
-  def average_moods_after_no_dreams
+  def average_mood_after_no_dreams
     calculate_average(sleep_entries.select { |entry| entry.dream == false }, :mood_after)
   end
 
