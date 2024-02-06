@@ -85,35 +85,53 @@ RSpec.describe "Api::V1::Therapists", type: :request do
       expect(response).to have_http_status(:success)
       expect(response_data).to be_a(Hash)
 
-      expect(response_data).to have_key(:id)
-      expect(response_data[:id]).to be_a(Integer)
+      expect(response_data).to have_key(:therapist_id)
+      expect(response_data[:therapist_id]).to be_a(Integer)
 
-      expect(response_data).to have_key(:name)
-      expect(response_data[:name]).to be_a(String)
+      expect(response_data).to have_key(:therapist_name)
+      expect(response_data[:therapist_name]).to be_a(String)
 
-      expect(response_data).to have_key(:email)
-      expect(response_data[:email]).to be_a(String)
+      expect(response_data).to have_key(:patients)
+      expect(response_data[:patients]).to be_a(Array)
 
-      expect(response_data).to have_key(:office_number)
-      expect(response_data[:office_number]).to be_a(String)
+      expect(response_data[:patients][0]).to have_key(:patient_id)
+      expect(response_data[:patients][0][:patient_id]).to be_a(Integer)
 
-      expect(response_data).to have_key(:specialization)
-      expect(response_data[:specialization]).to be_a(String)
+      expect(response_data[:patients][0]).to have_key(:patient_name)
+      expect(response_data[:patients][0][:patient_name]).to be_a(String)
 
-      expect(response_data).to have_key(:years_in_practice)
-      expect(response_data[:years_in_practice]).to be_a(Integer)
+      expect(response_data[:patients][0]).to have_key(:patient_pattern)
+      expect(response_data[:patients][0][:patient_pattern]).to be_a(Hash)
 
-      expect(response_data).to have_key(:credentials)
-      expect(response_data[:credentials]).to be_a(String)
+      expect(response_data[:patients][0][:patient_pattern]).to have_key(:pattern_id)
+      expect(response_data[:patients][0][:patient_pattern][:pattern_id]).to be_a(Integer)
 
-      expect(response_data).to have_key(:bio)
-      expect(response_data[:bio]).to be_a(String)
+      expect(response_data[:patients][0][:patient_pattern]).to have_key(:pattern)
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to be_a(Hash)
 
-      expect(response_data).to have_key(:created_at)
-      expect(response_data[:created_at]).to be_a(String)
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:appointments)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:appointments]).to be_a(Hash)
 
-      expect(response_data).to have_key(:updated_at)
-      expect(response_data[:updated_at]).to be_a(String)
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:exercise_entries)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:exercise_entries]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:journal_entries)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:journal_entries]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:medication_entries)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:medication_entries]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:mindfulness_activities)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:mindfulness_activities]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:nutrition_entries)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:nutrition_entries]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:sleep_entries)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:sleep_entries]).to be_a(Hash)
+
+      expect(response_data[:patients][0][:patient_pattern][:pattern]).to have_key(:social_interactions)
+      expect(response_data[:patients][0][:patient_pattern][:pattern][:social_interactions]).to be_a(Hash)
     end
 
     it "sad path: returns error if therapist not found" do

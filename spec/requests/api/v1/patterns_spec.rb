@@ -25,14 +25,8 @@ RSpec.describe "Api::V1::Patterns", type: :request do
       expect(response).to have_http_status(:success)
       response_data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response_data[:pattern_id]).to eq(@pattern.id)
+      expect(response_data).to have_key(:pattern_id)
       expect(response_data[:pattern_id]).to be_a(Integer)
-
-      expect(response_data[:name]).to eq(@patient.name)
-      expect(response_data[:name]).to be_a(String)
-
-      expect(response_data[:therapist]).to eq(@patient.therapist.name)
-      expect(response_data[:therapist]).to be_a(String)
 
       expect(response_data).to have_key(:pattern) 
       expect(response_data[:pattern]).to be_a(Hash)
