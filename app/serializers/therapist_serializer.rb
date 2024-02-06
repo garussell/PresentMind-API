@@ -10,7 +10,7 @@ class TherapistSerializer
         {
           patient_id: patient.id, 
           patient_name: patient.name, 
-          pattern: pattern.nil? ? nil : PatternSerializer.create_stats(patient, pattern),
+          patient_pattern: pattern.nil? ? nil : PatternSerializer.create_stats(patient, pattern),
         } 
       end
     }

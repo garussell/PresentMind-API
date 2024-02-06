@@ -11,12 +11,8 @@ class Api::V1::TherapistsController < ApplicationController
       therapist = Therapist.find(params[:id])
       patients = therapist.patients
 
-      if therapist
-        serialized_info = TherapistSerializer.therapist_view(therapist, patients)
-        render json: serialized_info, status: :ok
-      else
-        render json: {error: "Therapist not found"}, status: :not_found
-      end
+      serialized_info = TherapistSerializer.therapist_view(therapist, patients)
+      render json: serialized_info, status: :ok
     rescue ActiveRecord::RecordNotFound => e
       render json: {error: e.message}, status: :not_found
     end
@@ -46,6 +42,7 @@ class Api::V1::TherapistsController < ApplicationController
 
   def destroy
     therapist = Therapist.find(params[:id])
+    therapist.patients.destroy_all
     
     if therapist.destroy
       render json: {message: "Therapist deleted successfully"}, status: :ok

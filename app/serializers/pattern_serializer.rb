@@ -4,8 +4,6 @@ class PatternSerializer
   def self.create_stats(patient, pattern)
     {
       pattern_id: pattern.id,
-      name: patient.name,
-      therapist: patient.therapist.name,
       pattern: {
         appointments: {
           average_mood_before_appointment: pattern.average_mood_before_appointment,
@@ -50,8 +48,7 @@ class PatternSerializer
           average_stress_after_incorrect_portion_healthy: pattern.average_stress_after_incorrect_portion_healthy,
           average_stress_after_correct_portion_unhealthy: pattern.average_stress_after_correct_portion_unhealthy,
           average_stress_after_correct_portion_healthy: pattern.average_stress_after_correct_portion_healthy,
-          average_stress_after_incorrect_portion_unhealthy: pattern.average_stress_after_incorrect_portion_unhealthy,
-          average_stress_after_incorrect_portion_healthy: pattern.average_stress_after_incorrect_portion_healthy
+
         },
         sleep_entries: {
           average_mood_before_sleep: pattern.average_mood_before_sleep,
