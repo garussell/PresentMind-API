@@ -240,16 +240,16 @@ RSpec.describe Pattern, type: :model do
         expect(@patterns.average_mood_after_sleep).to eq(values.sum / values.count.to_f)
       end
 
-      it "average_moods_after_dreams" do
+      it "average_mood_after_dreams" do
         moods = SleepEntry.where(patient: @patient, dream: true).pluck(:mood_after)
         values = moods.map { |mood| @patterns.map_enum_to_integer(mood) }
-        expect(@patterns.average_moods_after_dreams).to eq(values.sum / values.count.to_f)
+        expect(@patterns.average_mood_after_dreams).to eq(values.sum / values.count.to_f)
       end
 
-      it "average_moods_after_no_dreams" do
+      it "average_mood_after_no_dreams" do
         moods = SleepEntry.where(patient: @patient, dream: false).pluck(:mood_after)
         values = moods.map { |mood| @patterns.map_enum_to_integer(mood) }
-        expect(@patterns.average_moods_after_no_dreams).to eq(values.sum / values.count.to_f)
+        expect(@patterns.average_mood_after_no_dreams).to eq(values.sum / values.count.to_f)
       end
 
       it "average_mood_less_than_8_hours" do
