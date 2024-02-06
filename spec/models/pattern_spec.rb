@@ -362,5 +362,11 @@ RSpec.describe Pattern, type: :model do
         expect(@patterns.average_stress_after_social_with_no_alcohol_no_drugs).to eq(values.sum / values.count.to_f)
       end
     end
+
+    describe "sad path" do
+      it "raises an error if the enum value is not found" do
+        expect { @patterns.map_enum_to_integer("not_an_enum") }.to raise_error(RuntimeError)
+      end
+    end
   end
 end
