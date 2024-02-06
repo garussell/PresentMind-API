@@ -6,8 +6,8 @@ FactoryBot.define do
     location { Faker::Games::ClashOfClans.defensive_building }
     duration_in_minutes { rand(1..120) }
     date { Faker::Date.between(from: 1.year.ago, to: Date.today) }
-    alcohol_use { true }
-    drug_use { true }
+    alcohol_use { Faker::Boolean.boolean }
+    drug_use { Faker::Boolean.boolean }
     mood_before { Faker::Number.between(from: 1, to: 7) }
     mood_after { Faker::Number.between(from: 1, to: 7) }
     stress_before { Faker::Number.between(from: 1, to: 7) }
