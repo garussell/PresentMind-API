@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_201640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,14 +176,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_230744) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "appointments", "patients"
-  add_foreign_key "exercise_entries", "patients"
-  add_foreign_key "journal_entries", "patients"
-  add_foreign_key "medication_entries", "patients"
-  add_foreign_key "mindfulness_activities", "patients"
-  add_foreign_key "nutrition_entries", "patients"
+  add_foreign_key "appointments", "patients", on_delete: :cascade
+  add_foreign_key "exercise_entries", "patients", on_delete: :cascade
+  add_foreign_key "journal_entries", "patients", on_delete: :cascade
+  add_foreign_key "medication_entries", "patients", on_delete: :cascade
+  add_foreign_key "mindfulness_activities", "patients", on_delete: :cascade
+  add_foreign_key "nutrition_entries", "patients", on_delete: :cascade
   add_foreign_key "patients", "therapists"
-  add_foreign_key "patterns", "patients"
-  add_foreign_key "sleep_entries", "patients"
-  add_foreign_key "social_interactions", "patients"
+  add_foreign_key "patterns", "patients", on_delete: :cascade
+  add_foreign_key "sleep_entries", "patients", on_delete: :cascade
+  add_foreign_key "social_interactions", "patients", on_delete: :cascade
 end
