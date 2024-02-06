@@ -19,4 +19,12 @@ class Patient < ApplicationRecord
                         :emergency_contact_name, 
                         :emergency_contact_number, 
                         :therapist_id
+
+  after_create :create_default_pattern
+
+  private
+
+  def create_default_pattern
+    Pattern.create(patient_id: self.id)
+  end
 end
