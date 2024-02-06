@@ -5,6 +5,29 @@ RSpec.describe "Api::V1::Therapists", type: :request do
 
   before do
     @therapist = create(:therapist)
+    @patient1 = create(:patient, therapist: @therapist)
+    @patient2 = create(:patient, therapist: @therapist)
+
+    appointments = create_list(:appointment, 20, patient: @patient1)
+    exercise_entries = create_list(:exercise_entry, 20, patient: @patient1)
+    journal_entries = create_list(:journal_entry, 20, patient: @patient1)
+    medication_entries = create_list(:medication_entry, 20, patient: @patient1)
+    mindfulness_activities = create_list(:mindfulness_activity, 20, patient: @patient1)
+    nutrition_entries = create_list(:nutrition_entry, 20, patient: @patient1)
+    sleep_entries = create_list(:sleep_entry, 20, patient: @patient1)
+    social_interactions = create_list(:social_interaction, 20, patient: @patient1)
+
+    appointments = create_list(:appointment, 20, patient: @patient2)
+    exercise_entries = create_list(:exercise_entry, 20, patient: @patient2)
+    journal_entries = create_list(:journal_entry, 20, patient: @patient2)
+    medication_entries = create_list(:medication_entry, 20, patient: @patient2)
+    mindfulness_activities = create_list(:mindfulness_activity, 20, patient: @patient2)
+    nutrition_entries = create_list(:nutrition_entry, 20, patient: @patient2)
+    sleep_entries = create_list(:sleep_entry, 20, patient: @patient2)
+    social_interactions = create_list(:social_interaction, 20, patient: @patient2)
+
+    @pattern1 = create(:pattern, patient: @patient1)
+    @pattern2 = create(:pattern, patient: @patient2)
   end
 
   describe "therapists#index", :vcr do

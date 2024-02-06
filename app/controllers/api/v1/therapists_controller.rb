@@ -9,7 +9,14 @@ class Api::V1::TherapistsController < ApplicationController
   def show
     begin 
       therapist = Therapist.find(params[:id])
-      render json: therapist, status: :ok
+      patients = therapist.patients
+
+      if therapist
+        serialized_info = TherapistSerializer.therapist_view(therapist, patients)
+        render json: serialized_info, status: :ok
+      else
+        render json: {error: "Therapist not found"}, status: :not_found
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: {error: e.message}, status: :not_found
     end
